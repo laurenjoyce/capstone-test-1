@@ -1,0 +1,25 @@
+<h1>Search for a doctor:</h1>
+<%= form_tag "/", method: :get do %>
+  <div>
+    <%= label_tag :first_name %>
+    <%= text_field_tag :first_name %>
+  </div>
+  <div>
+    <%= label_tag :last_name %>
+    <%= text_field_tag :last_name %>
+  </div>
+  <div>
+    <%= submit_tag "Search" %>
+  </div>
+<% end %>
+<h1>All doctors</h1>
+<h3>Search Results: <%= @search_total %></h3>
+<% @doctors.each do |doctor| %>
+  <%= link_to "/doctors/#{doctor}" %>
+  <h3><ul><%= @list_number %>. Name: <%= "#{doctor["profile"]["first_name"]} #{doctor["profile"]["last_name"]}" %></ul></h3>
+    <ul>Gender: <%= "#{doctor["profile"]["gender"]}" %></ul>
+    <ul>Specialties: <%= "#{doctor["specialties"][0]["name"]}" %></ul>
+    <ul>Practice: <%= "#{doctor["practices"][0]["name"]}" %></ul>
+    <ul>Location: <%= "#{doctor["practices"][0]["visit_address"]["city"]}" %>, <%= "#{doctor["practices"][0]["visit_address"]["state_long"]}" %></ul>
+    <% @list_number = @list_number + 1 %>  
+<% end %>
