@@ -15,11 +15,22 @@
 <h1>All doctors</h1>
 <h3>Search Results: <%= @search_total %></h3>
 <% @doctors.each do |doctor| %>
-  <%= link_to "/doctors/#{doctor}" %>
-  <h3><ul><%= @list_number %>. Name: <%= "#{doctor["profile"]["first_name"]} #{doctor["profile"]["last_name"]}" %></ul></h3>
+
+  <h3><ul><%= @list_number %>. Name: 
+          <%= "#{doctor["profile"]["first_name"]} 
+               #{doctor["profile"]["last_name"]}" %></ul></h3>
+
+<h3><%= @list_number %>. Name: <a href="/doctors/<%= "#{doctor["uid"]}" %>">
+                                <%= "#{doctor["profile"]["first_name"]} 
+                                #{doctor["profile"]["last_name"]}" %></a></h3>
+
+
+    <ul>UID: <%= "#{doctor["uid"]}" %></ul>
     <ul>Gender: <%= "#{doctor["profile"]["gender"]}" %></ul>
     <ul>Specialties: <%= "#{doctor["specialties"][0]["name"]}" %></ul>
     <ul>Practice: <%= "#{doctor["practices"][0]["name"]}" %></ul>
-    <ul>Location: <%= "#{doctor["practices"][0]["visit_address"]["city"]}" %>, <%= "#{doctor["practices"][0]["visit_address"]["state_long"]}" %></ul>
+    <ul>Location: <%= "#{doctor["practices"][0]["visit_address"]["city"]}" %>, 
+                  <%= "#{doctor["practices"][0]["visit_address"]["state_long"]}" %></ul>
+    <ul><img src="<%= "#{doctor["profile"]["image_url"]}" %>" alt="Mountain View" style="width:304px;height:270px;"></ul>
     <% @list_number = @list_number + 1 %>  
 <% end %>

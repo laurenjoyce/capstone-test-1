@@ -1,0 +1,22 @@
+<h1>Doctor Show Page</h1>
+
+<p>Name: <%= "#{@doctor["profile"]["first_name"]} 
+               #{@doctor["profile"]["last_name"]}" %></p>
+<p>UID: <%= "#{@doctor["uid"]}" %></p>
+<p>Gender: <%= "#{@doctor["profile"]["gender"]}" %></p>
+<p>Specialties: <%= "#{@doctor["specialties"][0]["name"]}" %></p>
+<p>Practice: <%= "#{@doctor["practices"][0]["name"]}" %></p>
+<p>Location: <%= "#{@doctor["practices"][0]["visit_address"]["city"]}" %>, 
+                  <%= "#{@doctor["practices"][0]["visit_address"]["state_long"]}" %></p>
+<p><img src="<%= "#{@doctor["profile"]["image_url"]}" %>" 
+             alt="Mountain View" style="width:304px;height:270px;"></p>
+
+
+<%= form_tag "/favorites", method: :post do %>
+  <div>
+    <%= submit_tag "Add this doctor to your favorites list"  %>
+  </div>
+<% end %>
+
+<h4><a href="/">Back to search page</a></h4>
+

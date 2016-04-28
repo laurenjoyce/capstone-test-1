@@ -11,7 +11,9 @@ class DoctorsController < ApplicationController
   end
 
   def show
-    doctor_id = 
+    uid = params[:id]
+    @response_body = Unirest.get("https://api.betterdoctor.com/2016-03-01/doctors/#{uid}?user_key=#{ENV['better_doctor_api_key']}").body
+    @doctor = @response_body["data"]
     render "show.html.erb"
   end
   # def run_search

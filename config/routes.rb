@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  devise_for :users
   get '/' => 'doctors#index'
   get '/doctors/:id' => 'doctors#show'
 
