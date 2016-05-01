@@ -1,0 +1,12 @@
+<h1>My Saved Doctors</h1>
+
+<p>Name: <%= "#{@saved_doctors["profile"]["first_name"]}
+               #{@saved_doctors["profile"]["last_name"]}" %></p>
+<p>UID: <%= "#{@saved_doctors["uid"]}" %></p>
+<p>Gender: <%= "#{@saved_doctors["profile"]["gender"]}" %></p>
+<p>Specialties: <%= "#{@saved_doctors["specialties"][0]["name"]}" %></p>
+<p>Practice: <%= "#{@saved_doctors["practices"][0]["name"]}" %></p>
+<p>Location: <%= "#{@saved_doctors["practices"][0]["visit_address"]["city"]}" %>, 
+                  <%= "#{@saved_doctors["practices"][0]["visit_address"]["state_long"]}" %></p>
+<p><img src="<%= "#{@saved_doctors["profile"]["image_url"]}" %>" 
+             alt="Mountain View" style="width:304px;height:270px;"></p>

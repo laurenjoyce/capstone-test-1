@@ -3,6 +3,10 @@ Rails.application.routes.draw do
   get '/' => 'doctors#index'
   get '/doctors/:id' => 'doctors#show'
 
+  get '/saved_doctors' => 'saved_doctors#index'
+  get '/saved_doctors/:id' => 'saved_doctors#show'
+
+
   # post '/search' => 'doctors#run_search'
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

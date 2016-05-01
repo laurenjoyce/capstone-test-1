@@ -45,10 +45,12 @@
         <button type="submit" class="btn btn-default">Submit</button>
       </form>
       <ul class="nav navbar-nav navbar-right">
+      <% if current_user == nil %>
         <li><a href="/users/sign_up">Sign Up</a></li>
         <li><a href="/users/sign_in">Log In</a></li>
+      <% else %>  
         <li><%= link_to "Log Out", "/users/sign_out", method: :delete %></li>
-
+      <% end %>
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
           <ul class="dropdown-menu">
@@ -71,7 +73,9 @@
     <%= message.html_safe %>  
   </div>
 <% end %> 
-
+  <% if current_user != nil %>
+  <p>Welcome <%= current_user.email %>! </p>
+  <% end %>
 <%= yield %>
 
 </body>
