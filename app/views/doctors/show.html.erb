@@ -12,7 +12,7 @@
              alt="Mountain View" style="width:304px;height:270px;"></p>
 
 
-<%= form_tag "/saved_doctors", method: :get do %>
+<%= form_tag "/saved_doctors", method: :post do %>
   <div>
     <%= submit_tag "Add this doctor to your saved list"  %>
   </div>
@@ -21,10 +21,13 @@
   <%= hidden_field_tag :doctor_uid, @doctor["uid"] %>
   </div>
 
- <div>
+    <div>
   <%= hidden_field_tag :user_id, current_user.id %>
-</div>
+  </div>
 
+<div>
+<%= hidden_field_tag :status, "Saved" %>
+</div>
 
 <% end %>
 

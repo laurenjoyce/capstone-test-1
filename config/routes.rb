@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   get '/doctors/:id' => 'doctors#show'
 
   get '/saved_doctors' => 'saved_doctors#index'
+  post '/saved_doctors' => 'saved_doctors#create'
   get '/saved_doctors/:id' => 'saved_doctors#show'
 
 

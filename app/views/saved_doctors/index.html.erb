@@ -1,12 +1,19 @@
+<h4><a href="/">Back to search page</a></h4>
+
 <h1>My Saved Doctors</h1>
 
-<p>Name: <%= "#{@saved_doctors["profile"]["first_name"]}
-               #{@saved_doctors["profile"]["last_name"]}" %></p>
-<p>UID: <%= "#{@saved_doctors["uid"]}" %></p>
-<p>Gender: <%= "#{@saved_doctors["profile"]["gender"]}" %></p>
-<p>Specialties: <%= "#{@saved_doctors["specialties"][0]["name"]}" %></p>
-<p>Practice: <%= "#{@saved_doctors["practices"][0]["name"]}" %></p>
-<p>Location: <%= "#{@saved_doctors["practices"][0]["visit_address"]["city"]}" %>, 
-                  <%= "#{@saved_doctors["practices"][0]["visit_address"]["state_long"]}" %></p>
-<p><img src="<%= "#{@saved_doctors["profile"]["image_url"]}" %>" 
+
+<% @saved_doctors.each do |saved_doctor| %>
+
+  <h2>Start</h2>
+  <p><img src="<%= Unirest.get("https://api.betterdoctor.com/2016-03-01/doctors/#{saved_doctor.doctor_uid}?user_key=#{ENV['better_doctor_api_key']}").body["data"]["profile"]["image_url"] %>" 
              alt="Mountain View" style="width:304px;height:270px;"></p>
+  <h3>Doctor UID: <%= saved_doctor.doctor_uid %></h3>
+  <h3>User ID:<%= saved_doctor.user_id %></h3>
+  <h3>Saved Doctor ID:<%= saved_doctor.id %></h3>
+  <h3>Status:<%= saved_doctor.status %></h3>
+  <h3><%= Unirest.get("https://api.betterdoctor.com/2016-03-01/doctors/#{saved_doctor.doctor_uid}?user_key=#{ENV['better_doctor_api_key']}").body["data"]["profile"]["first_name"] %>
+      <%= Unirest.get("https://api.betterdoctor.com/2016-03-01/doctors/#{saved_doctor.doctor_uid}?user_key=#{ENV['better_doctor_api_key']}").body["data"]["profile"]["last_name"] %></h3>
+  <h2>End</h2>
+<% end %>
+
