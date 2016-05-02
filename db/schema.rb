@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160502000026) do
+ActiveRecord::Schema.define(version: 20160502061017) do
 
   create_table "doctors", force: :cascade do |t|
     t.string   "first_name"
@@ -25,6 +25,16 @@ ActiveRecord::Schema.define(version: 20160502000026) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string   "doctor_uid"
+  end
+
+  create_table "questions", force: :cascade do |t|
+    t.integer  "user_id"
+    t.string   "doctor_uid"
+    t.text     "text"
+    t.integer  "answer_id"
+    t.string   "status"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "saved_doctors", force: :cascade do |t|

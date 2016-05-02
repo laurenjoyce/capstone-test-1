@@ -1,0 +1,8 @@
+<h1>My Questions</h1>
+
+<% @questions.each do |question| %>
+  <h3>Question: <%= question.text %></h3>
+  <h3>User id: <%= question.user_id %></h3>
+  <h3>Status: <%= question.status %></h3>
+
+<% end %>

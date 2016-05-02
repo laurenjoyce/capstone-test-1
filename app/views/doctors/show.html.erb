@@ -21,16 +21,36 @@
   <%= hidden_field_tag :doctor_uid, @doctor["uid"] %>
   </div>
 
-    <div>
+  <div>
   <%= hidden_field_tag :user_id, current_user.id %>
   </div>
 
-<div>
-<%= hidden_field_tag :status, "Saved" %>
-</div>
+  <div>
+  <%= hidden_field_tag :status, "Saved" %>
+  </div>
 
 <% end %>
 
-<h4><a href="/">Back to search page</a></h4>
+<%= form_tag "/questions", method: :post do %>
+  <div>
+    <%= label_tag :Question %>
+    <%= text_field_tag :text %>
+  </div>
+  <div>
+    <%= submit_tag "Submit Question" %>
+  </div>
+  <div>
+    <%= hidden_field_tag :doctor_uid, @doctor["uid"] %>
+  </div>
+  <div>
+    <%= hidden_field_tag :user_id, current_user.id %>
+  </div>
+  <div>
+    <%= hidden_field_tag :status, "Submitted" %>
+  </div>
 
-test
+<% end %>
+
+<h2><%= @questions %></h2>
+
+<h4><a href="/">Back to search page</a></h4>

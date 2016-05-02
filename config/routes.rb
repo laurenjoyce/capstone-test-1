@@ -7,6 +7,10 @@ Rails.application.routes.draw do
   post '/saved_doctors' => 'saved_doctors#create'
   get '/saved_doctors/:id' => 'saved_doctors#show'
 
+  get '/questions' => 'questions#index'
+  post '/questions' => 'questions#create'
+
+
 
   # post '/search' => 'doctors#run_search'
   # The priority is based upon order of creation: first created -> highest priority.
