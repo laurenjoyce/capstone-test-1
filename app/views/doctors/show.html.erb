@@ -28,7 +28,6 @@
   <div>
   <%= hidden_field_tag :status, "Saved" %>
   </div>
-
 <% end %>
 
 <%= form_tag "/questions", method: :post do %>
@@ -51,6 +50,12 @@
 
 <% end %>
 
-<h2><%= @questions %></h2>
+<% @questions.each do |question| %>
+  <p><%= question.text %></p>
+<% end %>
+
+
+<h2>Un-save this doctor!</h2>
+
 
 <h4><a href="/">Back to search page</a></h4>

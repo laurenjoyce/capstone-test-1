@@ -6,6 +6,7 @@ Rails.application.routes.draw do
   get '/saved_doctors' => 'saved_doctors#index'
   post '/saved_doctors' => 'saved_doctors#create'
   get '/saved_doctors/:id' => 'saved_doctors#show'
+  delete '/saved_doctors' => 'saved_doctors#destroy'
 
   get '/questions' => 'questions#index'
   post '/questions' => 'questions#create'

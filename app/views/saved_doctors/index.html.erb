@@ -2,18 +2,14 @@
 
 <h1>My Saved Doctors</h1>
 
+<% @saved_doctors.each do |doctor| %>
+  
+  <%= link_to  "#{doctor[:first_name]} #{doctor[:last_name]}", "/doctors/#{doctor[:uid]}" %>
 
-<% @saved_doctors.each do |saved_doctor| %>
+ <p><img src="<%= doctor[:image_url] %>"></p>
+  <p><%= doctor[:uid] %></p>
 
-  <h2>Start</h2>
-  <p><img src="<%= Unirest.get("https://api.betterdoctor.com/2016-03-01/doctors/#{saved_doctor.doctor_uid}?user_key=#{ENV['better_doctor_api_key']}").body["data"]["profile"]["image_url"] %>" 
-             alt="Mountain View" style="width:304px;height:270px;"></p>
-  <h3>Doctor UID: <%= saved_doctor.doctor_uid %></h3>
-  <h3>User ID:<%= saved_doctor.user_id %></h3>
-  <h3>Saved Doctor ID:<%= saved_doctor.id %></h3>
-  <h3>Status:<%= saved_doctor.status %></h3>
-  <h3><%= Unirest.get("https://api.betterdoctor.com/2016-03-01/doctors/#{saved_doctor.doctor_uid}?user_key=#{ENV['better_doctor_api_key']}").body["data"]["profile"]["first_name"] %>
-      <%= Unirest.get("https://api.betterdoctor.com/2016-03-01/doctors/#{saved_doctor.doctor_uid}?user_key=#{ENV['better_doctor_api_key']}").body["data"]["profile"]["last_name"] %></h3>
-  <h2>End</h2>
+<%= link_to "Remove this doctor from your saved list", "/saved_doctors?doctor_uid=#{doctor[:uid]}", method: :delete %><br/>
+
+
 <% end %>
-

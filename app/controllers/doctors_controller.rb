@@ -14,6 +14,10 @@ class DoctorsController < ApplicationController
     uid = params[:id]
     @response_body = Unirest.get("https://api.betterdoctor.com/2016-03-01/doctors/#{uid}?user_key=#{ENV['better_doctor_api_key']}").body
     @doctor = @response_body["data"]
+    @questions = Question.where(doctor_uid: params[:id])
+    p "====="
+    p @questions
+    p "====="
     render "show.html.erb"
   end
   # def run_search

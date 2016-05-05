@@ -1,6 +1,6 @@
 class QuestionsController < ApplicationController
   def index
-    @questions = Question.where(user_id: current_user.id)
+    @questions = Question.all
     render "index.html.erb"
   end 
 
