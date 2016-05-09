@@ -1,15 +1,26 @@
 <h1>Doctor Show Page</h1>
+<h4><a href="/">Back to search page</a></h4>
 
-<p>Name: <%= "#{@doctor["profile"]["first_name"]} 
-               #{@doctor["profile"]["last_name"]}" %></p>
-<p>UID: <%= "#{@doctor["uid"]}" %></p>
-<p>Gender: <%= "#{@doctor["profile"]["gender"]}" %></p>
-<p>Specialties: <%= "#{@doctor["specialties"][0]["name"]}" %></p>
-<p>Practice: <%= "#{@doctor["practices"][0]["name"]}" %></p>
-<p>Location: <%= "#{@doctor["practices"][0]["visit_address"]["city"]}" %>, 
-                  <%= "#{@doctor["practices"][0]["visit_address"]["state_long"]}" %></p>
+<h1><%= "#{@doctor["profile"]["first_name"]} 
+               #{@doctor["profile"]["last_name"]}" %></h1>
 <p><img src="<%= "#{@doctor["profile"]["image_url"]}" %>" 
              alt="Mountain View" style="width:304px;height:270px;"></p>
+<p><b>Bio:</b></p>
+<p><%= "#{@doctor["profile"]["bio"]}" %></p>
+<p><b>Gender:</b> <%= "#{@doctor["profile"]["gender"]}" %></p>
+<p><b>Specialties:</b> <%= "#{@doctor["specialties"][0]["name"]}" %></p>
+
+
+<h2>Contact information:</h2>
+<p><b>Practice:</b> <%= "#{@doctor["practices"][0]["name"]}" %></p>
+<p><b>Location:</b> </p>
+<p><%= "#{@doctor["practices"][0]["visit_address"]["street"]}" %></p>
+<p><%= "#{@doctor["practices"][0]["visit_address"]["street2"]}" %></p>
+<p><%= "#{@doctor["practices"][0]["visit_address"]["city"]}" %>, <%= "#{@doctor["practices"][0]["visit_address"]["state_long"]}" %> <%= "#{@doctor["practices"][0]["visit_address"]["zip"]}" %></p>
+
+<p>Website: <a href="<%= "#{@doctor["practices"][0]["website"]}" %>"><%= "#{@doctor["practices"][0]["website"]}" %></a></p>
+<p>Phone: <%= "#{@doctor["practices"][0]["phones"][0]["number"]}" %></p>
+<p>Accepting new patients? <%= "#{@doctor["practices"][0]["accepts_new_patients"]}" %></p>
 
 
 <%= form_tag "/saved_doctors", method: :post do %>
@@ -50,12 +61,9 @@
 
 <% end %>
 
+
+<p>Questions for <%= "#{@doctor["profile"]["first_name"]} 
+               #{@doctor["profile"]["last_name"]}" %></p>
 <% @questions.each do |question| %>
   <p><%= question.text %></p>
 <% end %>
-
-
-<h2>Un-save this doctor!</h2>
-
-
-<h4><a href="/">Back to search page</a></h4>

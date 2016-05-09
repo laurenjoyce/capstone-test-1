@@ -7,7 +7,11 @@
   <%= link_to  "#{doctor[:first_name]} #{doctor[:last_name]}", "/doctors/#{doctor[:uid]}" %>
 
  <p><img src="<%= doctor[:image_url] %>"></p>
-  <p><%= doctor[:uid] %></p>
+  <p><%= doctor[:bio] %></p>
+  <p><%= doctor[:practice] %></p>
+
+
+
 
 <%= link_to "Remove this doctor from your saved list", "/saved_doctors?doctor_uid=#{doctor[:uid]}", method: :delete %><br/>
 

@@ -9,7 +9,9 @@ class SavedDoctorsController < ApplicationController
         :first_name => response_body["profile"]["first_name"],
         :last_name => response_body["profile"]["last_name"],
         :image_url => response_body["profile"]["image_url"],
-        :uid => response_body["uid"]
+        :uid => response_body["uid"],
+        :practice => response_body["practices"][0]["name"],
+        :bio => response_body["profile"]["bio"]
       }
 
       @saved_doctors << doctor_data
