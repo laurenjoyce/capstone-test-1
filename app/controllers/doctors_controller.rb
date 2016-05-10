@@ -18,6 +18,7 @@ class DoctorsController < ApplicationController
     p "====="
     p @questions
     p "====="
+    @reviews = Review.where(doctor_uid: params[:id])
     render "show.html.erb"
   end
   # def run_search

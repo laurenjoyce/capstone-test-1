@@ -28,14 +28,19 @@
 <script>
   var map;
   function initMap() {
+    var myLatLng = {lat: <%= "#{@doctor["practices"][0]["lat"]}" %>, lng: <%= "#{@doctor["practices"][0]["lon"]}" %>};
     map = new google.maps.Map(document.getElementById('map'), {
       center: {lat: <%= "#{@doctor["practices"][0]["lat"]}" %>, lng: <%= "#{@doctor["practices"][0]["lon"]}" %>},
-      zoom: 8
+      zoom: 14
+    });
+    var marker = new google.maps.Marker({
+      position: myLatLng,
+      map: map,
+      title: 'Hello World!'
     });
   }
 </script>
 <script src="https://maps.googleapis.com/maps/api/js?callback=initMap" async defer></script>
-
 
 <h2>Contact information:</h2>
 <p><b>Practice:</b> <%= "#{@doctor["practices"][0]["name"]}" %></p>
@@ -87,10 +92,41 @@
 
 <% end %>
 
+<h3>Submit a question: </h3>
 
 <p>Questions for <%= "#{@doctor["profile"]["first_name"]} 
-               #{@doctor["profile"]["last_name"]}" %></p>
+               #{@doctor["profile"]["last_name"]}" %>:</p>
 <% @questions.each do |question| %>
   <p><%= question.text %></p>
+<% end %>
+
+<h3>Submit a review: </h3>
+<%= form_tag "/reviews", method: :post do %>
+  <div>
+    <%= label_tag :Review %>
+    <%= text_field_tag :text %>
+  </div>
+  <div>
+    <%= label_tag :Rating %>
+    <%= text_field_tag :rating %>
+  </div>  
+
+  <div>
+    <%= submit_tag "Submit Review" %>
+  </div>
+  <div>
+    <%= hidden_field_tag :doctor_uid, @doctor["uid"] %>
+  </div>
+  <div>
+    <%= hidden_field_tag :user_id, current_user.id %>
+  </div>
+  <% end %>
+
+
+<p>Reviews for <%= "#{@doctor["profile"]["first_name"]} 
+               #{@doctor["profile"]["last_name"]}" %></p>
+<% @reviews.each do |review| %>
+  <p>Review: "<%= review.text %>"</p>
+  <p>Rating: <%= review.rating %> out of 5</p>
 <% end %>
 

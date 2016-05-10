@@ -11,6 +11,9 @@ Rails.application.routes.draw do
   get '/questions' => 'questions#index'
   post '/questions' => 'questions#create'
 
+  get '/reviews' => 'reviews#index'
+  post '/reviews' => 'reviews#create'
+
 
 
   # post '/search' => 'doctors#run_search'
