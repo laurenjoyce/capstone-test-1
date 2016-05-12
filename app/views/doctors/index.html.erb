@@ -44,13 +44,113 @@
                         <div class="col-sm-8 col-sm-offset-2 text-center">
                             <div class="intro-text wow animated fadeInUp" data-wow-delay="0.1s">
                                 <p>
-                                    We're creative web design & development agency based in Sydney. Establecido hace demasiado tiempo que un lector se distraerá con el contenido del texto de un sitio mientras que mira su diseño.  
+                                    <h1>Search for a doctor:</h1>
+                                      <%= form_tag "/", method: :get do %>
+                                        <div>
+                                          <%= label_tag :first_name %>
+                                          <%= text_field_tag :first_name %>
+                                        </div>
+                                        <div>
+                                          <%= label_tag :last_name %>
+                                          <%= text_field_tag :last_name %>
+                                        </div>
+                                        <div>
+                                          <%= submit_tag "Search" %>
+                                        </div>
+                                      <% end %>
+                                      <h1>All doctors</h1>
+                                      <h3>Search Results: <%= @search_total %></h3>
+                                      <% @doctors.each do |doctor| %>
+
+                                        <h3><%= @list_number %>. Name: <a href="/doctors/<%= "#{doctor["uid"]}" %>">
+                                                                        <%= "#{doctor["profile"]["first_name"]} 
+                                                                             #{doctor["profile"]["last_name"]}" %></a>
+                                        </h3>
+
+
+                                            <ul>Gender: <%= "#{doctor["profile"]["gender"]}" %></ul>
+                                            <ul>Specialties: <%= "#{doctor["specialties"][0]["name"]}" %></ul>
+                                            <ul>Practice: <%= "#{doctor["practices"][0]["name"]}" %></ul>
+                                            <ul>Location: <%= "#{doctor["practices"][0]["visit_address"]["city"]}" %>, 
+                                                          <%= "#{doctor["practices"][0]["visit_address"]["state_long"]}" %></ul>
+                                            <ul><img src="<%= "#{doctor["profile"]["image_url"]}" %>" alt="Mountain View" style="width:304px;height:270px;"></ul>
+                                            <% @list_number = @list_number + 1 %>  
+                                        <% end %>
                                 </p>
                                 <h4>John Doe, Design_mylife inc.</h4>
                             </div>
                         </div>
                         <div class="space-60"></div>
                     </div><!--end row-->
+                                        <!--services start-->
+                    <div class="row no-margin ">
+                        <div class="col-sm-12">
+                            <div class="section-title">
+
+                                <h3>Search Results</h3>
+
+                            </div>
+                        </div>
+                    </div><!--section title-->
+                                        <div class="row no-margin">
+                        <div class="col-sm-4">
+                            <div class="service-box wow animated fadeInDown" data-wow-delay="0.1s">
+                                <i class="icon-mobile"></i>
+                                <h3>Responsive Design</h3>
+                                <p>
+                                    Establecido hace demasiado tiempo que un lector se distraerá con el contenido del texto de un sitio mientras que mira su diseño. 
+                                </p>
+                            </div>
+                        </div><!--end col-->
+                        <div class="col-sm-4">
+                            <div class="service-box wow animated fadeInDown" data-wow-delay="0.2s">
+                                <i class="icon-pictures"></i>
+                                <h3>Photography</h3>
+                                <p>
+                                    Establecido hace demasiado tiempo que un lector se distraerá con el contenido del texto de un sitio mientras que mira su diseño. 
+                                </p>
+                            </div>
+                        </div><!--end col-->
+                        <div class="col-sm-4">
+                            <div class="service-box wow animated fadeInDown" data-wow-delay="0.3s">
+                                <i class="icon-camera"></i>
+                                <h3>UI/UX Design</h3>
+                                <p>
+                                    Establecido hace demasiado tiempo que un lector se distraerá con el contenido del texto de un sitio mientras que mira su diseño. 
+                                </p>
+                            </div>
+                        </div><!--end col-->
+                    </div>
+                    <div class="row no-margin">
+                        <div class="col-sm-4">
+                            <div class="service-box wow animated fadeInDown" data-wow-delay="0.4s">
+                                <i class="icon-search"></i>
+                                <h3>Seo Ready</h3>
+                                <p>
+                                    Establecido hace demasiado tiempo que un lector se distraerá con el contenido del texto de un sitio mientras que mira su diseño. 
+                                </p>
+                            </div>
+                        </div><!--end col-->
+                        <div class="col-sm-4">
+                            <div class="service-box wow animated fadeInDown" data-wow-delay="0.5s">
+                                <i class="icon-presentation"></i>
+                                <h3>Marketing</h3>
+                                <p>
+                                    Establecido hace demasiado tiempo que un lector se distraerá con el contenido del texto de un sitio mientras que mira su diseño. 
+                                </p>
+                            </div>
+                        </div><!--end col-->
+                        <div class="col-sm-4">
+                            <div class="service-box wow animated fadeInDown" data-wow-delay="0.6s">
+                                <i class="icon-gears"></i>
+                                <h3>Web Development</h3>
+                                <p>
+                                    Establecido hace demasiado tiempo que un lector se distraerá con el contenido del texto de un sitio mientras que mira su diseño. 
+                                </p>
+                            </div>
+                        </div><!--end col-->
+                    </div>
+                    <!--services end-->
                     <div class="row vertical-align-child white-bg wide-image-wrapper no-margin">
 
                         <div class="col-sm-6 text-left">
@@ -209,77 +309,6 @@
                     <div class='space-60'></div>
 
 
-
-                    <!--services start-->
-                    <div class="row no-margin ">
-                        <div class="col-sm-12">
-                            <div class="section-title">
-
-                                <h3>Search for a Doctor</h3>
-
-                            </div>
-                        </div>
-                    </div><!--section title-->
-
-                    <div class="row no-margin">
-                        <div class="col-sm-4">
-                            <div class="service-box wow animated fadeInDown" data-wow-delay="0.1s">
-                                <i class="icon-mobile"></i>
-                                <h3>Responsive Design</h3>
-                                <p>
-                                    Establecido hace demasiado tiempo que un lector se distraerá con el contenido del texto de un sitio mientras que mira su diseño. 
-                                </p>
-                            </div>
-                        </div><!--end col-->
-                        <div class="col-sm-4">
-                            <div class="service-box wow animated fadeInDown" data-wow-delay="0.2s">
-                                <i class="icon-pictures"></i>
-                                <h3>Photography</h3>
-                                <p>
-                                    Establecido hace demasiado tiempo que un lector se distraerá con el contenido del texto de un sitio mientras que mira su diseño. 
-                                </p>
-                            </div>
-                        </div><!--end col-->
-                        <div class="col-sm-4">
-                            <div class="service-box wow animated fadeInDown" data-wow-delay="0.3s">
-                                <i class="icon-camera"></i>
-                                <h3>UI/UX Design</h3>
-                                <p>
-                                    Establecido hace demasiado tiempo que un lector se distraerá con el contenido del texto de un sitio mientras que mira su diseño. 
-                                </p>
-                            </div>
-                        </div><!--end col-->
-                    </div>
-                    <div class="row no-margin">
-                        <div class="col-sm-4">
-                            <div class="service-box wow animated fadeInDown" data-wow-delay="0.4s">
-                                <i class="icon-search"></i>
-                                <h3>Seo Ready</h3>
-                                <p>
-                                    Establecido hace demasiado tiempo que un lector se distraerá con el contenido del texto de un sitio mientras que mira su diseño. 
-                                </p>
-                            </div>
-                        </div><!--end col-->
-                        <div class="col-sm-4">
-                            <div class="service-box wow animated fadeInDown" data-wow-delay="0.5s">
-                                <i class="icon-presentation"></i>
-                                <h3>Marketing</h3>
-                                <p>
-                                    Establecido hace demasiado tiempo que un lector se distraerá con el contenido del texto de un sitio mientras que mira su diseño. 
-                                </p>
-                            </div>
-                        </div><!--end col-->
-                        <div class="col-sm-4">
-                            <div class="service-box wow animated fadeInDown" data-wow-delay="0.6s">
-                                <i class="icon-gears"></i>
-                                <h3>Web Development</h3>
-                                <p>
-                                    Establecido hace demasiado tiempo que un lector se distraerá con el contenido del texto de un sitio mientras que mira su diseño. 
-                                </p>
-                            </div>
-                        </div><!--end col-->
-                    </div>
-                    <!--services end-->
   <div class='space-60'></div>
                     <div class="testimonials row no-margin">
                         <div class="col-sm-8 col-sm-offset-2 text-center">
@@ -344,35 +373,3 @@
                     </footer>
                     <!--footer end-->
 
-<h1>Search for a doctor:</h1>
-<%= form_tag "/", method: :get do %>
-  <div>
-    <%= label_tag :first_name %>
-    <%= text_field_tag :first_name %>
-  </div>
-  <div>
-    <%= label_tag :last_name %>
-    <%= text_field_tag :last_name %>
-  </div>
-  <div>
-    <%= submit_tag "Search" %>
-  </div>
-<% end %>
-<h1>All doctors</h1>
-<h3>Search Results: <%= @search_total %></h3>
-<% @doctors.each do |doctor| %>
-
-<h3><%= @list_number %>. Name: <a href="/doctors/<%= "#{doctor["uid"]}" %>">
-                                <%= "#{doctor["profile"]["first_name"]} 
-                                     #{doctor["profile"]["last_name"]}" %></a>
-</h3>
-
-
-    <ul>Gender: <%= "#{doctor["profile"]["gender"]}" %></ul>
-    <ul>Specialties: <%= "#{doctor["specialties"][0]["name"]}" %></ul>
-    <ul>Practice: <%= "#{doctor["practices"][0]["name"]}" %></ul>
-    <ul>Location: <%= "#{doctor["practices"][0]["visit_address"]["city"]}" %>, 
-                  <%= "#{doctor["practices"][0]["visit_address"]["state_long"]}" %></ul>
-    <ul><img src="<%= "#{doctor["profile"]["image_url"]}" %>" alt="Mountain View" style="width:304px;height:270px;"></ul>
-    <% @list_number = @list_number + 1 %>  
-<% end %>
