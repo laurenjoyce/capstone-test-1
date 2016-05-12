@@ -7,8 +7,13 @@
   <%= link_to  "#{doctor[:first_name]} #{doctor[:last_name]}", "/doctors/#{doctor[:uid]}" %>
 
  <p><img src="<%= doctor[:image_url] %>"></p>
-  <p><%= doctor[:bio] %></p>
-  <p><%= doctor[:practice] %></p>
+  <p>Specialties: <%= doctor[:specialties] %></p>
+  <p>Practice: <%= doctor[:practice] %></p>
+  <p>Location:</p>
+  <p>: <%= doctor[:practice] %></p>
+
+
+
 
 
 

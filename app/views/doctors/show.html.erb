@@ -9,6 +9,12 @@
 <p><%= "#{@doctor["profile"]["bio"]}" %></p>
 <p><b>Gender:</b> <%= "#{@doctor["profile"]["gender"]}" %></p>
 <p><b>Specialties:</b> <%= "#{@doctor["specialties"][0]["name"]}" %></p>
+<p><b>Insurance plans appcepted:</b></p>
+
+<% @doctor["insurances"].each do |insurance| %>
+  <p><%= insurance["insurance_plan"]["name"] %></p>  
+<% end %>
+
 
 <style>
   html, body {
