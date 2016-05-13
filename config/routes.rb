@@ -14,7 +14,8 @@ Rails.application.routes.draw do
   get '/reviews' => 'reviews#index'
   post '/reviews' => 'reviews#create'
 
-
+  get '/user_profiles' => 'user_profiles#index'
+  post '/user_profiles' => 'user_profiles#create'
 
   # post '/search' => 'doctors#run_search'
   # The priority is based upon order of creation: first created -> highest priority.

@@ -17,11 +17,30 @@
       <div class="banner-text">
         <div class="row no-margin">
           <div class="col-sm-8 col-sm-offset-2 text-center">
-            <h1>Be Well</h1>
-            <p>Find the right health care provider for you.</p>
+            <h1><%= "#{@doctor["profile"]["first_name"]} 
+              #{@doctor["profile"]["last_name"]}" %></h1>
+            <p><img src="<%= "#{@doctor["profile"]["image_url"]}" %>" 
+               alt="Mountain View" style="width:304px;height:290px;"></p>
             <div class="buttons">
-              <a href="/#" class="btn btn-skin btn-lg btn-radius">Learn more</a>
-              <a href="/#" class="btn btn-white btn-lg btn-radius">Our Portfolio</a>
+             <%= form_tag "/saved_doctors", method: :post do %>
+              <div>
+                <%= button_tag(type: 'submit', class: "btn btn-skin btn-lg btn-radius") do %>
+                  Save This Doctor
+                <% end %>
+              </div>
+
+              <div>
+                <%= hidden_field_tag :doctor_uid, @doctor["uid"] %>
+              </div>
+
+              <div>
+                <%= hidden_field_tag :user_id, current_user.id %>
+              </div>
+
+              <div>
+                <%= hidden_field_tag :status, "Saved" %>
+              </div>
+            <% end %>
             </div>
           </div>
         </div>
@@ -98,131 +117,21 @@
   <div class="col-sm-6 img-right hidden-xs">
 
   </div>
-</div>
-<!--intro text end-->
 
-
+</div><!--intro text end-->
 <!--Portfolio start-->
 <div class="portfolio-wrapper">
   <div class="parallax-header">
     <div class="row no-margin">
       <div class="col-sm-12 wow animated bounceIn" data-wow-delay="0.1s">
-        <h3>Recent portfolio</h3>
-        <p class="sub-title">Lorem ipsum dolor sit amet</p>
+        <h3>Reviews and Ratings</h3>
+        <p class="sub-title">See what others are saying about this doctor</p>
       </div>
     </div>
     <div class="separator-bottom" style="background-color: #000000;color:#eef1f6;"></div>
   </div><!--parallax header end-->
-  <div class="space-60"></div>
 
   <div class="row no-margin">
-    <div class="col-sm-4">
-      <div class="box-img">
-        <div class="inner">
-          <img alt="" src="/images/img-1.jpg" class="img-responsive">
-          <div class="item-desc">
-            <span>
-              <a href="/images/img-1.jpg" data-lightbox="roadtrip"><i class="icon-magnifying-glass"></i></a>
-              <a href="/folio-single.html"><i class="icon-expand"></i></a>
-            </span>
-            <p>Project Title <em>Bootstrap</em></p>
-          </div>
-        </div>
-      </div>
-    </div><!--col end-->
-    <div class="col-sm-4">
-      <div class="box-img">
-        <div class="inner">
-          <img alt="" src="/images/img-2.jpg" class="img-responsive">
-          <div class="item-desc">
-            <span>
-              <a href="/images/img-2.jpg" data-lightbox="roadtrip"><i class="icon-magnifying-glass"></i></a>
-              <a href="/folio-single.html"><i class="icon-expand"></i></a>
-            </span>
-            <p>Project Title <em>Bootstrap</em></p>
-          </div>
-        </div>
-      </div>
-    </div><!--col end-->
-    <div class="col-sm-4">
-      <div class="box-img">
-        <div class="inner">
-          <img alt="" src="/images/img-3.jpg" class="img-responsive">
-          <div class="item-desc">
-            <span>
-              <a href="/images/img-3.jpg" data-lightbox="roadtrip"><i class="icon-magnifying-glass"></i></a>
-              <a href="/folio-single.html"><i class="icon-expand"></i></a>
-            </span>
-            <p>Project Title <em>Bootstrap</em></p>
-          </div>
-        </div>
-      </div>
-    </div><!--col end-->
-  </div>
-  <div class="row no-margin">
-    <div class="col-sm-4">
-      <div class="box-img">
-        <div class="inner">
-          <img alt="" src="/images/img-4.jpg" class="img-responsive">
-          <div class="item-desc">
-            <span>
-              <a href="/images/img-4.jpg" data-lightbox="roadtrip"><i class="icon-magnifying-glass"></i></a>
-              <a href="/folio-single.html"><i class="icon-expand"></i></a>
-            </span>
-            <p>Project Title <em>Bootstrap</em></p>
-          </div>
-        </div>
-      </div>
-    </div><!--col end-->
-    <div class="col-sm-4">
-      <div class="box-img">
-        <div class="inner">
-          <img alt="" src="/images/img-5.jpg" class="img-responsive">
-          <div class="item-desc">
-            <span>
-              <a href="/images/img-5.jpg" data-lightbox="roadtrip"><i class="icon-magnifying-glass"></i></a>
-              <a href="/folio-single.html"><i class="icon-expand"></i></a>
-            </span>
-            <p>Project Title <em>Bootstrap</em></p>
-          </div>
-        </div>
-      </div>
-    </div><!--col end-->
-    <div class="col-sm-4">
-      <div class="box-img">
-        <div class="inner">
-          <img alt="" src="/images/img-6.jpg" class="img-responsive">
-          <div class="item-desc">
-            <span>
-              <a href="/images/img-6.jpg" data-lightbox="roadtrip"><i class="icon-magnifying-glass"></i></a>
-              <a href="/folio-single.html"><i class="icon-expand"></i></a>
-            </span>
-            <p>Project Title <em>Bootstrap</em></p>
-          </div>
-        </div>
-      </div>
-    </div><!--col end-->
-  </div>
-</div><!--Portfolio end-->
-
-<div class='space-30'></div>
-<a class="link-block" href="/masonry-folio.html">View All Work</a>
-<div class='space-60'></div>
-
-
-
-<!--services start-->
-<div class="row no-margin ">
-  <div class="col-sm-12">
-    <div class="section-title">
-
-      <h3>Search for a Doctor</h3>
-
-    </div>
-  </div>
-</div><!--section title-->
-
-<div class="row no-margin">
   <div class="col-sm-4">
     <div class="service-box wow animated fadeInDown" data-wow-delay="0.1s">
       <i class="icon-mobile"></i>
@@ -280,6 +189,56 @@
     </div>
   </div><!--end col-->
 </div>
+  <div class="space-60"></div>
+<!--newsletter-->
+<div class="row no-margin newsletter-form">
+  <div class="col-sm-7 wow animated fadeInLeft" data-wow-delay="0.1s">
+    <h2>LEAVE A REVIEW</h2>
+    <p>
+      Would you recommend this docotor? Let others know what you think!
+    </p>
+  </div>
+  <div class="col-sm-5 wow animated fadeInRight" data-wow-delay="0.2s">
+    <%= form_tag "/reviews", method: :post do %>
+      <div class="form-group">
+        <%= label_tag :Review %>
+        <%= text_field_tag :text %>
+      </div>
+      <div>
+        <%= label_tag :Rating %>
+        <%= text_field_tag :rating %>
+      </div>  
+      <div>
+        <%= button_tag(type: 'submit', class: "btn btn-dark btn-radius btn-lg") do %>
+          SUBMIT
+        <% end %>
+      </div>
+      <div>
+        <%= hidden_field_tag :doctor_uid, @doctor["uid"] %>
+      </div>
+      <div>
+        <%= hidden_field_tag :user_id, current_user.id %>
+      </div>
+    <% end %>
+  </div>
+</div>
+<div class='space-30'></div>
+<a class="link-block" href="/masonry-folio.html">View All Work</a>
+<div class='space-60'></div>
+
+
+
+<!--services start-->
+<div class="row no-margin ">
+  <div class="col-sm-12">
+    <div class="section-title">
+
+      <h3>Search for a Doctor</h3>
+
+    </div>
+  </div>
+</div><!--section title-->
+
 <!--services end-->
 <div class='space-60'></div>
 <div class="testimonials row no-margin">
@@ -307,26 +266,7 @@
   </div>
 </div>
 
-<!--newsletter-->
-<div class="row no-margin newsletter-form">
-  <div class="col-sm-7 wow animated fadeInLeft" data-wow-delay="0.1s">
-    <h2>Subscribe to our newsletter</h2>
-    <p>
-      Establecido hace demasiado tiempo que un lector se distraerá con el contenido del texto de un sitio mientras que mira su diseño.
-    </p>
-  </div>
-  <div class="col-sm-5 wow animated fadeInRight" data-wow-delay="0.2s">
-    <form role="form" method="post" action="#" class="subscribe-form  assan-newsletter">
-      <div class="form-group">
-        <input type="text" class="form-control" name="email" placeholder="Enter email to subscribe">
-      </div>
-      <div class="text-right">
-        <button class="btn btn-dark btn-radius btn-lg" name="submit" type="submit">Notify me</button>
-      </div>                          
-    </form>
 
-  </div>
-</div>
 
 <!--footer start-->
 <footer class="footer row no-margin">
@@ -344,9 +284,6 @@
   </div>
 </footer>
 <!--footer end-->
-<h1>Doctor Show Page</h1>
-<h4><a href="/">Back to search page</a></h4>
-
 <h1><%= "#{@doctor["profile"]["first_name"]} 
   #{@doctor["profile"]["last_name"]}" %></h1>
   <p><img src="<%= "#{@doctor["profile"]["image_url"]}" %>" 
@@ -379,23 +316,7 @@
    <p>Accepting new patients? <%= "#{@doctor["practices"][0]["accepts_new_patients"]}" %></p>
 
 
-   <%= form_tag "/saved_doctors", method: :post do %>
-   <div>
-    <%= submit_tag "Add this doctor to your saved list"  %>
-  </div>
 
-  <div>
-    <%= hidden_field_tag :doctor_uid, @doctor["uid"] %>
-  </div>
-
-  <div>
-    <%= hidden_field_tag :user_id, current_user.id %>
-  </div>
-
-  <div>
-    <%= hidden_field_tag :status, "Saved" %>
-  </div>
-  <% end %>
 
   <%= form_tag "/questions", method: :post do %>
   <div>
@@ -425,27 +346,6 @@
    <p><%= question.text %></p>
    <% end %>
 
-   <h3>Submit a review: </h3>
-   <%= form_tag "/reviews", method: :post do %>
-   <div>
-    <%= label_tag :Review %>
-    <%= text_field_tag :text %>
-  </div>
-  <div>
-    <%= label_tag :Rating %>
-    <%= text_field_tag :rating %>
-  </div>  
-
-  <div>
-    <%= submit_tag "Submit Review" %>
-  </div>
-  <div>
-    <%= hidden_field_tag :doctor_uid, @doctor["uid"] %>
-  </div>
-  <div>
-    <%= hidden_field_tag :user_id, current_user.id %>
-  </div>
-  <% end %>
 
 
   <p>Reviews for <%= "#{@doctor["profile"]["first_name"]} 

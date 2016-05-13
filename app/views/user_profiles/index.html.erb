@@ -1,0 +1,35 @@
+<% if !@user_profile %>
+  <p>You don't have a profile yet! Add your info below:</p>
+    <%= form_tag "/user_profiles", method: :post do %>
+      <div>
+        <%= label_tag :first_name %>
+        <%= text_field_tag :first_name %>
+      </div>
+      <div>
+        <%= label_tag :last_name %>
+        <%= text_field_tag :last_name %>
+      </div>
+      <div>
+        <%= label_tag :address %>
+        <%= text_field_tag :address %>
+      </div>
+      <div>
+        <%= label_tag :insurance %>
+        <%= text_field_tag :insurance %>
+      </div>
+      <div>
+        <%= hidden_field_tag :user_id, current_user.id %>
+      </div>
+      <div>
+        <%= hidden_field_tag :email, current_user.email %>
+      </div>
+      <div>
+        <%= submit_tag "Add this info to your profile" %>
+      </div>
+    <% end %>
+<% else %>
+  <p>Name: <%= @user_profile.first_name %> <%= @user_profile.last_name %></p>
+  <p>Email: <%= @user_profile.email %></p>
+  <p>Home address: <%= @user_profile.address %></p>
+  <p>Insurance Plan: <%= @user_profile.insurance %></p>
+<% end %>
