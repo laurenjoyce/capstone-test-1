@@ -1,0 +1,28 @@
+<%= form_tag "/user_profiles", method: :patch do %>
+
+  <div>
+    <%= label_tag :first_name %>
+    <%= text_field_tag :first_name, @user_profile.first_name %>
+  </div>
+
+  <div>
+    <%= label_tag :last_name %>
+    <%= text_field_tag :last_name, @user_profile.last_name %>
+  </div>
+
+  <div>
+    <%= label_tag :address %>
+    <%= text_field_tag :address, @user_profile.address %>
+  </div>
+
+  <div>
+    <%= label_tag :insurance %>
+    <%= text_field_tag :insurance, @user_profile.insurance %>
+  </div>
+  
+
+  <div>
+    <%= submit_tag "Edit Profile" %>
+  </div>
+
+<% end %>

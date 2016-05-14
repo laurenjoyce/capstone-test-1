@@ -16,6 +16,8 @@ Rails.application.routes.draw do
 
   get '/user_profiles' => 'user_profiles#index'
   post '/user_profiles' => 'user_profiles#create'
+  get '/user_profiles/edit' => 'user_profiles#edit'
+  patch '/user_profiles' => 'user_profiles#update'
 
   # post '/search' => 'doctors#run_search'
   # The priority is based upon order of creation: first created -> highest priority.
