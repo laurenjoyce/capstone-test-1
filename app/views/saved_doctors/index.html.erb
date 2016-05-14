@@ -1,10 +1,9 @@
-<h4><a href="/">Back to search page</a></h4>
-
 <h1>My Saved Doctors</h1>
 
 <% @saved_doctors.each do |doctor| %>
-  
-  <%= link_to  "#{doctor[:first_name]} #{doctor[:last_name]}", "/doctors/#{doctor[:uid]}" %>
+        <div class="col-sm-4">
+        <div class="service-box wow animated fadeInDown" data-wow-delay="<%= @delay %>s"> 
+          <%= link_to  "#{doctor[:first_name]} #{doctor[:last_name]}", "/doctors/#{doctor[:uid]}" %>
 
  <p><img src="<%= doctor[:image_url] %>"></p>
   <p>Specialties: <%= doctor[:specialties] %></p>
@@ -12,13 +11,8 @@
   <p>Location:</p>
   <p>: <%= doctor[:practice] %></p>
 
-
-
-
-
-
-
 <%= link_to "Remove this doctor from your saved list", "/saved_doctors?doctor_uid=#{doctor[:uid]}", method: :delete %><br/>
-
-
-<% end %>
+        </div>
+      </div>
+      <% @delay = @delay + 0.2 %>
+   <% end %>

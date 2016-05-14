@@ -23,6 +23,7 @@ class DoctorsController < ApplicationController
     p @questions
     p "====="
     @reviews = Review.where(doctor_uid: params[:id])
+    @delay = 0.1
     render "show.html.erb"
   end
   # def run_search

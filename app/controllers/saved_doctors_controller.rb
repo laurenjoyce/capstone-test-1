@@ -2,6 +2,7 @@ class SavedDoctorsController < ApplicationController
   def index
     saved_doctors = SavedDoctor.where(user_id: current_user.id)
     @saved_doctors = []
+    @delay = 0.1
 
     saved_doctors.each do |doctor|
       response_body = Unirest.get("https://api.betterdoctor.com/2016-03-01/doctors/#{doctor.doctor_uid}?user_key=#{ENV['better_doctor_api_key']}").body["data"]
@@ -18,6 +19,7 @@ class SavedDoctorsController < ApplicationController
     end
 
     return @saved_doctors
+
 
     render "index.html.erb"
     
