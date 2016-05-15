@@ -19,6 +19,12 @@ Rails.application.routes.draw do
   get '/user_profiles/edit' => 'user_profiles#edit'
   patch '/user_profiles' => 'user_profiles#update'
 
+  namespace :api do
+    namespace :v1 do
+      post '/geolocation' => 'geolocation#set_cookie'
+    end
+  end
+
   # post '/search' => 'doctors#run_search'
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

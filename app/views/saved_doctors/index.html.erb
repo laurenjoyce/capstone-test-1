@@ -9,9 +9,9 @@
   <p>Specialties: <%= doctor[:specialties] %></p>
   <p>Practice: <%= doctor[:practice] %></p>
   <p>Location:</p>
-  <p>: <%= doctor[:practice] %></p>
+  <p><%= doctor[:practice] %></p>
 
-<%= link_to "Remove this doctor from your saved list", "/saved_doctors?doctor_uid=#{doctor[:uid]}", method: :delete %><br/>
+<%= link_to "Remove from list", "/saved_doctors?doctor_uid=#{doctor[:uid]}", method: :delete %><br/>
         </div>
       </div>
       <% @delay = @delay + 0.2 %>

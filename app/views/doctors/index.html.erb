@@ -18,6 +18,7 @@
                                         <div class="col-sm-8 col-sm-offset-2 text-center">
                                             <h1>Be Well</h1>
                                             <h2>Find the right health care provider for you.</h2>
+
                                             <div class="intro-text wow animated fadeInUp" data-wow-delay="0.1s">
                                               <p>
                                                 <p>Search for doctors:</p>
@@ -30,6 +31,19 @@
                                                       <%= label_tag :last_name %>
                                                       <%= text_field_tag :last_name %>
                                                     </div>
+                                                    <div>
+                                                      <%= label_tag :gender %>
+                                                      <%= text_field_tag :gender %>
+                                                    </div>
+                                                    <div>
+                                                      <%= label_tag :specialty %>
+                                                      <%= text_field_tag :specialty_uid %>
+                                                    </div>
+                                                    <div>
+                                                      <%= label_tag :address %>
+                                                      <%= text_field_tag :address, '', placeholder: 'leave blank to use current location' %>
+                                                    </div>
+
                                                     <div>
                                                       <%= submit_tag "Search" %>
                                                     </div>
@@ -48,7 +62,7 @@
                         <div class="col-sm-8 col-sm-offset-2 text-center">
                             <div class="intro-text wow animated fadeInUp" data-wow-delay="0.1s">
                                 <p>
-                                  <% if @search_total %>
+                                  <% if @search_total != 0 %>
                                     <div class="row no-margin ">
                                       <div class="col-sm-12">
                                         <div class="section-title">
@@ -56,33 +70,32 @@
                                         </div>
                                       </div>
                                     </div>
-                                  <% end %>
-                                  <% @doctors.each do |doctor| %>
-                                    <div class="col-sm-4">
-                                      <div class="service-box wow animated fadeInDown" data-wow-delay="0.1s">
+                                    <% @doctors.each do |doctor| %>
+                                      <div class="col-sm-4">
+                                        <div class="service-box wow animated fadeInDown" data-wow-delay="0.1s">
 
-                                        <h3><%= @list_number %>. Name: <a href="/doctors/<%= "#{doctor["uid"]}" %>">
-                                                                       <%= "#{doctor["profile"]["first_name"]} 
-                                                                            #{doctor["profile"]["last_name"]}" %></a>
-                                        </h3>
-                                          <h4><img src="<%= "#{doctor["profile"]["image_url"]}" %>" 
-                                                        alt="Mountain View" style="width:100px;height:90px;"></h4>
-                                          <h6>Gender: <%= "#{doctor["profile"]["gender"]}" %></h6>
-                                          <h6>Specialties: <%= "#{doctor["specialties"][0]["name"]}" %></h6>
-                                          <h6>Practice: <%= "#{doctor["practices"][0]["name"]}" %></h6>
-                                          <h6>Location: <%= "#{doctor["practices"][0]["visit_address"]["city"]}" %>, 
-                                                        <%= "#{doctor["practices"][0]["visit_address"]["state_long"]}" %></h6>
-                                          <% @list_number = @list_number + 1 %>
-                                      </div>
-                                    </div>  
+                                          <h3><%= @list_number %>. Name: <a href="/doctors/<%= "#{doctor["uid"]}" %>">
+                                                                         <%= "#{doctor["profile"]["first_name"]} 
+                                                                              #{doctor["profile"]["last_name"]}" %></a>
+                                          </h3>
+                                            <h4><img src="<%= "#{doctor["profile"]["image_url"]}" %>" 
+                                                          alt="Mountain View" style="width:100px;height:90px;"></h4>
+                                            <h6>Gender: <%= "#{doctor["profile"]["gender"]}" %></h6>
+                                            <h6>Specialties: <%= "#{doctor["specialties"][0]["name"]}" %></h6>
+                                            <h6>Practice: <%= "#{doctor["practices"][0]["name"]}" %></h6>
+                                            <h6>Location: <%= "#{doctor["practices"][0]["visit_address"]["city"]}" %>, 
+                                                          <%= "#{doctor["practices"][0]["visit_address"]["state_long"]}" %></h6>
+                                            <% @list_number = @list_number + 1 %>
+                                        </div>
+                                      </div> 
+                                    <% end %>
+                                  <% else %>
+                                    <p>No doctors were found that matched your search. Try searching again!</p>
                                   <% end %>
                                 </p>
                             </div>
                         </div>
                     </div><!--end row-->
-                    <div class='space-30'></div>
-                    <a class="link-block" href="/masonry-folio.html">View All Work</a>
-                    <div class='space-60'></div>
 
                     <div class="testimonials row no-margin">
                         <div class="col-sm-8 col-sm-offset-2 text-center">
@@ -147,3 +160,4 @@
                     </footer>
                     <!--footer end-->
 
+                    <% console %>

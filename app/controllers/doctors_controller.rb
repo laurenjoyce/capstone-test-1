@@ -4,11 +4,25 @@ class DoctorsController < ApplicationController
       redirect_to '/user_profiles'
     else
       @doctors = []
-      if params[:first_name] && params[:last_name]
-        response_body = Unirest.get("https://api.betterdoctor.com/2016-03-01/doctors?first_name=#{params[:first_name]}&last_name=#{params[:last_name]}&skip=0&limit=100&user_key=#{ENV['better_doctor_api_key']}").body
-        @doctors = response_body["data"]
-        @search_total = @doctors.length
-        @list_number = (@search_total - (@search_total - 1))
+      @search_query_string = ""
+      params[:first_name] && !params[:first_name].empty? ? @search_query_string += "first_name=#{params[:first_name]}&" : @search_query_string += ""
+      params[:last_name] && !params[:last_name].empty? ? @search_query_string += "last_name=#{params[:last_name]}&" : @search_query_string += ""
+      params[:gender] && !params[:gender].empty? ? @search_query_string += "gender=#{params[:gender]}&" : @search_query_string += ""
+      params[:specialty_uid] && !params[:specialty_uid].empty? ? @search_query_string += "specialty_uid=#{params[:specialty_uid]}&" : @search_query_string += ""
+
+
+      unless @search_query_string.empty?
+        session[:latitude] && !session[:latitude].empty? ? @search_query_string += "location=#{session[:latitude]},#{session[:longitude]},100&" : @search_query_string += ""
+        
+        url = "https://api.betterdoctor.com/2016-03-01/doctors?#{@search_query_string}skip=0&limit=100&user_key=#{ENV['better_doctor_api_key']}"
+        response_body = Unirest.get(url).body
+        @doctors = response_body["data"]      
+        if @doctors.nil?
+          @search_total = 0
+        else
+          @search_total = @doctors.length
+          @list_number = (@search_total - (@search_total - 1))
+        end
       end
       render "index.html.erb"
     end
