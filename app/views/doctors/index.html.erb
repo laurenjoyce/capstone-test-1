@@ -36,14 +36,17 @@
                                                       <%= text_field_tag :gender %>
                                                     </div>
                                                     <div>
-                                                      <%= label_tag :specialty %>
-                                                      <%= text_field_tag :specialty_uid %>
-                                                    </div>
-                                                    <div>
                                                       <%= label_tag :address %>
                                                       <%= text_field_tag :address, '', placeholder: 'leave blank to use current location' %>
                                                     </div>
-
+                                                    <div>
+                                                      <%= label_tag :specialty %>
+                                                      <select name="specialty_uid">
+                                                          <% @specialty.each do |k,v| %>
+                                                            <option value="<%=k%>"><%=v%></option>
+                                                          <% end%>
+                                                      </select>
+                                                    </div>
                                                     <div>
                                                       <%= submit_tag "Search" %>
                                                     </div>
