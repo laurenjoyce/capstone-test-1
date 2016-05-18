@@ -1,4 +1,5 @@
 class DoctorsController < ApplicationController
+  
   def index
     if user_signed_in? && !UserProfile.exists?(user_id: current_user.id)
       redirect_to '/user_profiles'
@@ -31,7 +32,7 @@ class DoctorsController < ApplicationController
         "periodontist" => "Periodontics",
         "geriatric-medicine-doctor" => "Geriatric Medicine"
       }
-      
+
       @search_query_string = ""
       params[:first_name] && !params[:first_name].empty? ? @search_query_string += "first_name=#{params[:first_name]}&" : @search_query_string += ""
       params[:last_name] && !params[:last_name].empty? ? @search_query_string += "last_name=#{params[:last_name]}&" : @search_query_string += ""
@@ -40,6 +41,8 @@ class DoctorsController < ApplicationController
 
       unless @search_query_string.empty?
         session[:latitude] && !session[:latitude].empty? ? @search_query_string += "location=#{session[:latitude]},#{session[:longitude]},100&" : @search_query_string += ""
+
+        
         
         url = "https://api.betterdoctor.com/2016-03-01/doctors?#{@search_query_string}skip=0&limit=100&user_key=#{ENV['better_doctor_api_key']}"
         response_body = Unirest.get(url).body

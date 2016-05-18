@@ -53,7 +53,7 @@
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
 </head>
-<body hoe-navigation-type="vertical" hoe-nav-placement="left" theme-layout="wide-layout">
+<body hoe-navigation-type="vertical" hoe-nav-placement="left" theme-layout="wide-layout" ng-app="app">
 
   <!--side navigation start-->
   <div id="hoeapp-wrapper" class="hoe-hide-lpanel" hoe-device-type="desktop">
@@ -204,7 +204,9 @@
         </ul>
       </aside>
       <section id="main-content" class="container">
+        <div>
         <%= yield %>
+        </div>
       </section>
     </div>
   </div>

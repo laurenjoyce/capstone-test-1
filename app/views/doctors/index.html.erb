@@ -1,6 +1,6 @@
                 <!--start main content-->
                     <!--intro banner start-->
-                    <div class="banner">
+                    <div class="banner" ng-controller="doctorsCtrl">
                         <div class="banner-slider">
                             <ul class="slides">
                                 <li>
@@ -36,16 +36,21 @@
                                                       <%= text_field_tag :gender %>
                                                     </div>
                                                     <div>
-                                                      <%= label_tag :address %>
-                                                      <%= text_field_tag :address, '', placeholder: 'leave blank to use current location' %>
-                                                    </div>
-                                                    <div>
                                                       <%= label_tag :specialty %>
                                                       <select name="specialty_uid">
                                                           <% @specialty.each do |k,v| %>
                                                             <option value="<%=k%>"><%=v%></option>
                                                           <% end%>
                                                       </select>
+                                                    </div>
+                                                    <div>
+                                                        <%= label_tag :insurance %>
+                                                        <input type="text" name="insurance_uid" id="insurance_uid" ng-model="insuranceMatch" ng-keyup="updateInsuranceMatch(this)">
+                                                    </div>
+                                                    <div>
+                                                        <ul>
+                                                            <li ng-repeat="insurance in insurances" ng-click="updateInsurance(insurance.name)">{{ insurance.name }}</li>
+                                                        </ul>
                                                     </div>
                                                     <div>
                                                       <%= submit_tag "Search" %>
