@@ -19,6 +19,9 @@ Rails.application.routes.draw do
   get '/user_profiles/edit' => 'user_profiles#edit'
   patch '/user_profiles' => 'user_profiles#update'
 
+  get '/posts' => 'posts#index'
+
+  
   namespace :api do
     namespace :v1 do
       post '/geolocation' => 'geolocation#set_cookie'
