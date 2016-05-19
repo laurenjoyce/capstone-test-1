@@ -7,4 +7,5 @@ class User < ActiveRecord::Base
   has_many :saved_doctors
   has_many :questions
   has_one :user_profile
+  has_many :posts
 end
