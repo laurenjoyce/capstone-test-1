@@ -5,7 +5,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-  <title>Assan - Minimal Portfolio</title>
+  <title>Be Well</title>
 
   <!-- Bootstrap -->
   <link href="/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -59,7 +59,7 @@
   <div id="hoeapp-wrapper" class="hoe-hide-lpanel" hoe-device-type="desktop">
     <header id="hoe-header" hoe-lpanel-effect="shrink">
       <div class="hoe-left-header">
-        <a href="/#"> A<span>SSAN</span></a>
+        <a href="/#"> B<span>E WELL</span></a>
         <span class="hoe-sidebar-toggle"><a href="/#"></a></span>
       </div>
 
@@ -92,7 +92,7 @@
           <li><a href="/users/sign_up">Sign Up</a></li>
           <li><a href="/users/sign_in">Log In</a></li>
           <% else %> 
-          <li>Welcome, <%= current_user.email %></li> 
+          <li>Welcome, <%= current_user.user_profile.first_name %>!</li> 
           <li><%= link_to "Log Out", "/users/sign_out", method: :delete %></li>
           <li><a href="/saved_doctors">My Saved Doctors</a></li>
           <li><a href="/user_profiles">My Profile</a></li>

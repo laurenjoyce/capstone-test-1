@@ -1,53 +1,39 @@
 class DoctorsController < ApplicationController
-  
+
   def index
     if user_signed_in? && !UserProfile.exists?(user_id: current_user.id)
       redirect_to '/user_profiles'
     else
       @doctors = []
-      @specialty = {
-        "Neurologist" => "Neurologist", 
-        "ear-nose-throat-doctor" => "Otolaryngology",
-        "Internist" => "Internal Medicine",
-        "orthopedic-surgeon" => "Orthopedic Surgery",
-        "urologist" => "Urology",
-        "pediatrician" => "Pediatrics",
-        "obstetrics-gynecologist" => "Obstetrics & Gynecology",
-        "dentist" => "Dentistry",
-        "psychiatrist" => "Psychiatry",
-        "family-practitioner" => "Family Medicine",
-        "cytopathologist" => "Cytopathology",
-        "pathologist" => "Pathology",
-        "interventional-cardiologist" => "interventional cardiology",
-        "cardiologist" => "Cardiovascular Disease",
-        "endocrinologist" => "Endocrinology, Diabetes & Metabolism",
-        "colorectal-surgeon" => "Colon & Rectal Surgery",
-        "general-surgeon" => "Surgery",
-        "plastic-surgery-specialist" => "Plastic Surgery",
-        "hospitalist" => "Hospitalist",
-        "gastroenterologist" => "Gastroenterology",
-        "family-nurse-practitioner" => "Family Nurse Practitioner",
-        "family-psychologist" => "Family Psychology",
-        "ophthalmologist" => "Ophthalmology",
-        "periodontist" => "Periodontics",
-        "geriatric-medicine-doctor" => "Geriatric Medicine"
-      }
+      @insurances = InsuranceHelper::Insurances::BETTER_DOCTOR_INSURANCES[0][:data]
+      @specialties = SpecialtyHelper::Specialties::BETTER_DOCTOR_SPECIALTIES[0][:data]
+      insurance_lookup = {}
+      @insurances.each { |i| insurance_lookup[i[:name]] = i[:uid] }
+      puts '*' * 30
+      p insurance_lookup
+      puts '*' * 30
+      specialty_lookup = {}
+      @specialties.each { |s| specialty_lookup[s[:name]] = s[:uid] }
+      puts '*' * 30
+      p specialty_lookup
+      puts '*' * 30
+      # coordinates = Geocoder.coordinates(params[:user_location])
 
       @search_query_string = ""
       params[:first_name] && !params[:first_name].empty? ? @search_query_string += "first_name=#{params[:first_name]}&" : @search_query_string += ""
       params[:last_name] && !params[:last_name].empty? ? @search_query_string += "last_name=#{params[:last_name]}&" : @search_query_string += ""
       params[:gender] && !params[:gender].empty? ? @search_query_string += "gender=#{params[:gender]}&" : @search_query_string += ""
-      params[:specialty_uid] && !params[:specialty_uid].empty? ? @search_query_string += "specialty_uid=#{params[:specialty_uid]}&" : @search_query_string += ""
-
-      unless @search_query_string.empty?
-        session[:latitude] && !session[:latitude].empty? ? @search_query_string += "location=#{session[:latitude]},#{session[:longitude]},100&" : @search_query_string += ""
-
-        
-        
+      params[:specialty] && !params[:specialty].empty? ? @search_query_string += "specialty_uid=#{specialty_lookup[params[:specialty]]}&" : @search_query_string += ""
+      #params[:insurance] && !params[:insurance].empty? ? @search_query_string += "insurance_uid=#{insurance_lookup[params[:insurance]]}&" : @search_query_string += ""
+      
+        if current_user#unless @search_query_string.empty?
+          params[:user_location] && !params[:user_location].empty? ? @search_query_string += "location=#{current_user.user_profile.lat}%2C%20#{current_user.user_profile.lon}%2C100&" : @search_query_string += ""
+          else
+          session[:latitude] && !session[:longitude].empty? ? @search_query_string += "location=#{session[:latitude]},#{session[:longitude]},100&" : @search_query_string += ""
+        end        
         url = "https://api.betterdoctor.com/2016-03-01/doctors?#{@search_query_string}skip=0&limit=100&user_key=#{ENV['better_doctor_api_key']}"
         response_body = Unirest.get(url).body
 
-        p @search_query_string
         @doctors = response_body["data"]      
         if @doctors.nil?
           @search_total = 0
@@ -55,7 +41,6 @@ class DoctorsController < ApplicationController
           @search_total = @doctors.length
           @list_number = (@search_total - (@search_total - 1))
         end
-      end
       render "index.html.erb"
     end
   end

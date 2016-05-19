@@ -1,171 +1,162 @@
                 <!--start main content-->
                     <!--intro banner start-->
-                    <div class="banner" ng-controller="doctorsCtrl">
-                        <div class="banner-slider">
-                            <ul class="slides">
-                                <li>
-                                    <img src="/images/bg-1.jpg" class="img-responsive" alt="">
-                                </li>
-                                <li>
-                                    <img src="/images/bg-2.jpg" class="img-responsive" alt="">
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="banner-overlay">
-                            <div class="banner-inner">
-                                <div class="banner-text">
-                                    <div class="row no-margin">
-                                        <div class="col-sm-8 col-sm-offset-2 text-center">
-                                            <h1>Be Well</h1>
-                                            <h2>Find the right health care provider for you.</h2>
-
-                                            <div class="intro-text wow animated fadeInUp" data-wow-delay="0.1s">
-                                              <p>
-                                                <p>Search for doctors:</p>
-                                                  <%= form_tag "/", method: :get do %>
-                                                    <div>
-                                                      <%= label_tag :first_name %>
-                                                      <%= text_field_tag :first_name %>
-                                                    </div>
-                                                    <div>
-                                                      <%= label_tag :last_name %>
-                                                      <%= text_field_tag :last_name %>
-                                                    </div>
-                                                    <div>
-                                                      <%= label_tag :gender %>
-                                                      <%= text_field_tag :gender %>
-                                                    </div>
-                                                    <div>
-                                                      <%= label_tag :specialty %>
-                                                      <select name="specialty_uid">
-                                                          <% @specialty.each do |k,v| %>
-                                                            <option value="<%=k%>"><%=v%></option>
-                                                          <% end%>
-                                                      </select>
-                                                    </div>
-                                                    <div>
-                                                        <%= label_tag :insurance %>
-                                                        <input type="text" name="insurance_uid" id="insurance_uid" ng-model="insuranceMatch" ng-keyup="updateInsuranceMatch(this)">
-                                                    </div>
-                                                    <div>
-                                                        <ul>
-                                                            <li ng-repeat="insurance in insurances" ng-click="updateInsurance(insurance.name)">{{ insurance.name }}</li>
-                                                        </ul>
-                                                    </div>
-                                                    <div>
-                                                      <%= submit_tag "Search" %>
-                                                    </div>
-                                                  <% end %>  
-                                              </p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!--banner end-->
-                    <!--intro text-->
-                    <div class="row wide-image-wrapper no-margin">
+    <div class="banner" ng-controller="doctorsCtrl">
+        <div class="banner-slider">
+            <ul class="slides">
+                <li>
+                    <img src="/images/bg-1.jpg" class="img-responsive" alt="">
+                </li>
+                <li>
+                    <img src="/images/bg-2.jpg" class="img-responsive" alt="">
+                </li>
+            </ul>
+        </div>
+        <div class="banner-overlay">
+            <div class="banner-inner">
+                <div class="banner-text">
+                    <div class="row no-margin">
                         <div class="col-sm-8 col-sm-offset-2 text-center">
+                            <h1>Be Well</h1>
+                            <h2>Find the right health care provider for you.</h2>
+
                             <div class="intro-text wow animated fadeInUp" data-wow-delay="0.1s">
-                                <p>
-                                  <% if @search_total != 0 %>
-                                    <div class="row no-margin ">
-                                      <div class="col-sm-12">
-                                        <div class="section-title">
-                                          <h3>Search Results: <%= @search_total %></h3>
-                                        </div>
-                                      </div>
+                              <p>
+                                <p>Search for doctors:</p>
+                                  <%= form_tag "/", method: :get do %>
+                                    <div>
+                                      <%= label_tag :first_name %>
+                                      <%= text_field_tag :first_name %>
                                     </div>
-                                    <% @doctors.each do |doctor| %>
-                                      <div class="col-sm-4">
-                                        <div class="service-box wow animated fadeInDown" data-wow-delay="0.1s">
+                                    <div>
+                                      <%= label_tag :last_name %>
+                                      <%= text_field_tag :last_name %>
+                                    </div>
+                                    <div>
+                                      <%= label_tag :gender %>
+                                      <%= text_field_tag :gender %>
+                                    </div>
 
-                                          <h3><%= @list_number %>. Name: <a href="/doctors/<%= "#{doctor["uid"]}" %>">
-                                                                         <%= "#{doctor["profile"]["first_name"]} 
-                                                                              #{doctor["profile"]["last_name"]}" %></a>
-                                          </h3>
-                                            <h4><img src="<%= "#{doctor["profile"]["image_url"]}" %>" 
-                                                          alt="Mountain View" style="width:100px;height:90px;"></h4>
-                                            <h6>Gender: <%= "#{doctor["profile"]["gender"]}" %></h6>
-                                            <h6>Specialties: <%= "#{doctor["specialties"][0]["name"]}" %></h6>
-                                            <h6>Practice: <%= "#{doctor["practices"][0]["name"]}" %></h6>
-                                            <h6>Location: <%= "#{doctor["practices"][0]["visit_address"]["city"]}" %>, 
-                                                          <%= "#{doctor["practices"][0]["visit_address"]["state_long"]}" %></h6>
-                                            <% @list_number = @list_number + 1 %>
-                                        </div>
-                                      </div> 
-                                    <% end %>
-                                  <% else %>
-                                    <p>No doctors were found that matched your search. Try searching again!</p>
-                                  <% end %>
-                                </p>
-                            </div>
-                        </div>
-                    </div><!--end row-->
+                                        <b>Specialty</b><%= text_field_tag :specialty, '', list: 'specialty-list' %>
+                                      <datalist id="specialty-list">
+                                        <% @specialties.each do |specialty| %>
+                                            <option value="<%= specialty[:name] %>">
+                                        <% end %>
+                                      </datalist>
+                                    </div>
 
-                    <div class="testimonials row no-margin">
-                        <div class="col-sm-8 col-sm-offset-2 text-center">
-                            <h1>Testimonials</h1>
-
-
-                            <div id="owl-testi" class="owl-carousel owl-theme">
-
-                                <div class="item">
-                                    <img src="/images/t-1.jpg" alt="">
-                                    <p>
-                                        Establecido hace demasiado tiempo que un lector se distraerá con el contenido del texto de un sitio mientras que mira su diseño. 
-                                    </p>
-                                    <h4>John doe</h4>
-                                </div>
-                                <div class="item">
-                                    <img src="/images/t-2.jpg" alt="">
-                                    <p>
-                                        Establecido hace demasiado tiempo que un lector se distraerá con el contenido del texto de un sitio mientras que mira su diseño. 
-                                    </p>
-                                    <h4>John doe</h4>
-                                </div>
+                                    <% if @current_user %>
+                                    <div>
+                                        <%= label_tag :my_saved_address %>
+                                        <%= text_field_tag :user_location, @current_user.user_profile.address %>
+                                     </div>
+                                     <% end %>
+                                    <div>
+                                      <%= submit_tag "Search" %>
+                                    </div>
+                                  <% end %>  
+                              </p>
                             </div>
                         </div>
                     </div>
-
-                    <!--newsletter-->
-                    <div class="row no-margin newsletter-form">
-                        <div class="col-sm-7 wow animated fadeInLeft" data-wow-delay="0.1s">
-                            <h2>Subscribe to our newsletter</h2>
-                            <p>
-                                Establecido hace demasiado tiempo que un lector se distraerá con el contenido del texto de un sitio mientras que mira su diseño.
-                            </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--banner end-->
+    <!--intro text-->
+    <div class="row wide-image-wrapper no-margin">
+        <div class="col-sm-8 col-sm-offset-2 text-center">
+            <div class="intro-text wow animated fadeInUp" data-wow-delay="0.1s">
+                <p>
+                  <% if @search_total != 0 %>
+                    <div class="row no-margin ">
+                      <div class="col-sm-12">
+                        <div class="section-title">
+                          <h3>Search Results: <%= @search_total %></h3>
                         </div>
-                        <div class="col-sm-5 wow animated fadeInRight" data-wow-delay="0.2s">
-                            <form role="form" method="post" action="#" class="subscribe-form  assan-newsletter">
-                                <div class="form-group">
-                                    <input type="text" class="form-control" name="email" placeholder="Enter email to subscribe">
-                                </div>
-                                <div class="text-right">
-                                    <button class="btn btn-dark btn-radius btn-lg" name="submit" type="submit">Notify me</button>
-                                </div>                          
-                            </form>
-
-                        </div>
+                      </div>
                     </div>
+                    <% @doctors.each do |doctor| %>
+                      <div class="col-sm-4">
+                        <div class="service-box wow animated fadeInDown" data-wow-delay="0.1s">
 
-                    <!--footer start-->
-                    <footer class="footer row no-margin">
-                        <div class="col-sm-7">
-                            <ul class="list-inline">
-                                <li><a href="/#">Home</a></li>
-                                <li><a href="/#">About</a></li>
-                                <li><a href="/#">News</a></li>
-                                <li><a href="/#">Privacy</a></li>
-                                <li><a href="/#">Contact</a></li>
-                            </ul>
+                          <h3><%= @list_number %>. Name: <a href="/doctors/<%= "#{doctor["uid"]}" %>">
+                                                         <%= "#{doctor["profile"]["first_name"]} 
+                                                              #{doctor["profile"]["last_name"]}" %></a>
+                          </h3>
+                            <h4><img src="<%= "#{doctor["profile"]["image_url"]}" %>" 
+                                          alt="Mountain View" style="width:100px;height:90px;"></h4>
+                            <h6>Gender: <%= "#{doctor["profile"]["gender"]}" %></h6>
+                            <h6>Specialties: <%= "#{doctor["specialties"][0]["name"]}" %></h6>
+                            <h6>Practice: <%= "#{doctor["practices"][0]["name"]}" %></h6>
+                            <h6>Location: <%= "#{doctor["practices"][0]["visit_address"]["city"]}" %>, 
+                                          <%= "#{doctor["practices"][0]["visit_address"]["state_long"]}" %></h6>
+                            <% @list_number = @list_number + 1 %>
                         </div>
-                        <div class="col-sm-5 text-right">
-                            <span>&copy; Copyright 2016. All right reserved.</span>
-                        </div>
-                    </footer>
-                    <!--footer end-->
+                      </div> 
+                    <% end %>
+                  <% else %>
+                    <p>No doctors were found that matched your search. Try searching again!</p>
+                  <% end %>
+                </p>
+            </div>
+        </div>
+    </div><!--end row-->
+    <div class="testimonials row no-margin">
+        <div class="col-sm-8 col-sm-offset-2 text-center">
+            <h1>Testimonials</h1>
+            <div id="owl-testi" class="owl-carousel owl-theme">
+                <div class="item">
+                    <img src="/images/t-1.jpg" alt="">
+                    <p>
+                        Establecido hace demasiado tiempo que un lector se distraerá con el contenido del texto de un sitio mientras que mira su diseño. 
+                    </p>
+                    <h4>John doe</h4>
+                </div>
+                <div class="item">
+                    <img src="/images/t-2.jpg" alt="">
+                    <p>
+                        Establecido hace demasiado tiempo que un lector se distraerá con el contenido del texto de un sitio mientras que mira su diseño. 
+                    </p>
+                    <h4>John doe</h4>
+                </div>
+            </div>
+        </div>
+    </div>
 
-                    <% console %>
+    <!--newsletter-->
+    <div class="row no-margin newsletter-form">
+        <div class="col-sm-7 wow animated fadeInLeft" data-wow-delay="0.1s">
+            <h2>Subscribe to our newsletter</h2>
+            <p>
+                Establecido hace demasiado tiempo que un lector se distraerá con el contenido del texto de un sitio mientras que mira su diseño.
+            </p>
+        </div>
+        <div class="col-sm-5 wow animated fadeInRight" data-wow-delay="0.2s">
+            <form role="form" method="post" action="#" class="subscribe-form  assan-newsletter">
+                <div class="form-group">
+                    <input type="text" class="form-control" name="email" placeholder="Enter email to subscribe">
+                </div>
+                <div class="text-right">
+                    <button class="btn btn-dark btn-radius btn-lg" name="submit" type="submit">Notify me</button>
+                </div>                          
+            </form>
+        </div>
+    </div>
+
+    <!--footer start-->
+    <footer class="footer row no-margin">
+        <div class="col-sm-7">
+            <ul class="list-inline">
+                <li><a href="/#">Home</a></li>
+                <li><a href="/#">About</a></li>
+                <li><a href="/#">News</a></li>
+                <li><a href="/#">Privacy</a></li>
+                <li><a href="/#">Contact</a></li>
+            </ul>
+        </div>
+        <div class="col-sm-5 text-right">
+            <span>&copy; Copyright 2016. All right reserved.</span>
+        </div>
+    </footer>
+    <!--footer end-->

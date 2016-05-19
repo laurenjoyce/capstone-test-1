@@ -1,26 +1,18 @@
         
-<!--start main content-->
-<!--intro banner start-->
-<div class="banner">
-  <div class="banner-slider">
-    <ul class="slides">
-      <li>
-        <img src="/images/bg-1.jpg" class="img-responsive" alt="">
-      </li>
-      <li>
-        <img src="/images/bg-2.jpg" class="img-responsive" alt="">
-      </li>
-    </ul>
-  </div>
-  <div class="banner-overlay">
-    <div class="banner-inner">
-      <div class="banner-text">
-        <div class="row no-margin">
-          <div class="col-sm-8 col-sm-offset-2 text-center">
-            <h1><%= "#{@doctor["profile"]["first_name"]} 
-              #{@doctor["profile"]["last_name"]}" %></h1>
+
+<div class="row vertical-align-child white-bg wide-image-wrapper no-margin">
+
+  <div class="col-sm-6 text-left">
+    <div class="intro-text">
+
+      <h2 class="margin-b-30">
+        Dr. <%= "#{@doctor["profile"]["first_name"]} 
+        #{@doctor["profile"]["last_name"]}" %>
+      </h2>
+
+
             <p><img src="<%= "#{@doctor["profile"]["image_url"]}" %>" 
-               alt="Mountain View" style="width:304px;height:290px;"></p>
+               alt="Mountain View" style="width:152px;height:145px;"></p>
             <div class="buttons">
              <%= form_tag "/saved_doctors", method: :post do %>
               <div>
@@ -42,13 +34,66 @@
               </div>
             <% end %>
             </div>
-          </div>
-        </div>
-      </div>
+      <p><b>Gender:</b> <%= "#{@doctor["profile"]["gender"]}" %></p>
+      <p><b>Specialties:</b> <%= "#{@doctor["specialties"][0]["name"]}" %></p>
+      <p><b>Insurance plans appcepted:</b></p>
+        <% if @doctor["insurances"] %>
+    <% @doctor["insurances"].each do |insurance| %>
+      <p><%= insurance["insurance_plan"]["name"] %></p>  
+    <% end %>
+  <% else %>
+      <p>Not available</p>
+  <% end %>
     </div>
   </div>
-</div>
-<!--banner end-->
+
+  <div class="col-sm-6 text-right">
+    <script>
+      var map;
+      function initMap() {
+        var myLatLng = {lat: <%= "#{@doctor["practices"][0]["lat"]}" %>, lng: <%= "#{@doctor["practices"][0]["lon"]}" %>};
+        map = new google.maps.Map(document.getElementById('map'), {
+          center: {lat: <%= "#{@doctor["practices"][0]["lat"]}" %>, lng: <%= "#{@doctor["practices"][0]["lon"]}" %>},
+          zoom: 14
+        });
+        var marker = new google.maps.Marker({
+          position: myLatLng,
+          map: map,
+          title: 'Hello World!'
+        });
+      }
+      </script>
+      <script src="https://maps.googleapis.com/maps/api/js?callback=initMap" async defer></script>
+    <div id="map"></div>
+    <div class="col-sm-4 text-left">    
+      <h3>Contact information:</h3>
+      <p><b>Practice:</b> <%= "#{@doctor["practices"][0]["name"]}" %></p>
+      <p><b>Location:</b> </p>
+      <p><%= "#{@doctor["practices"][0]["visit_address"]["street"]}" %>, <%= "#{@doctor["practices"][0]["visit_address"]["street2"]}" %></p>
+      <p><%= "#{@doctor["practices"][0]["visit_address"]["city"]}" %>, <%= "#{@doctor["practices"][0]["visit_address"]["state_long"]}" %> <%= "#{@doctor["practices"][0]["visit_address"]["zip"]}" %></p>
+      <p>Website: 
+        <% if @doctor["practices"][0]["website"] == nil %>
+          N/A
+        <% else %>
+          <a href="<%= "#{@doctor["practices"][0]["website"]}" %>"><%= "#{@doctor["practices"][0]["website"]}" %></a>
+        <% end %>
+      </p>
+      </div>
+      <div class="col-sm-5 text-left">
+      <p>Phone: <%= "#{@doctor["practices"][0]["phones"][0]["number"]}" %></p>
+      <p>Accepting new patients? 
+        <% if @doctor["practices"][0]["accepts_new_patients"] %>
+          Yes
+        <% else %>
+          no
+        <% end %>
+      </p>
+      <p><a href="https://www.google.com/maps/dir/Current+Location/<%= @doctor["practices"][0]["lat"] %>,<%= @doctor["practices"][0]["lon"] %>">Get Directions from your Current Location</a></p>
+      <p><a href="https://www.google.com/maps/dir/<%= current_user.user_profile.lat %>,<%= current_user.user_profile.lon %>/<%= @doctor["practices"][0]["lat"] %>,<%= @doctor["practices"][0]["lon"] %>">Get Directions from your Saved Address</a></p>
+    </div>
+  </div>
+
+</div><!--intro text end-->
 
 <div class="space-60"></div>
 <!--section title start-->
@@ -71,52 +116,6 @@
 </div><!--end row-->
 
 
-<div class="row vertical-align-child white-bg wide-image-wrapper no-margin">
-
-  <div class="col-sm-6 text-left">
-    <div class="intro-text">
-
-      <h2 class="margin-b-30">
-        Dr. <%= "#{@doctor["profile"]["first_name"]} 
-        #{@doctor["profile"]["last_name"]}" %>
-      </h2>
-      <p><b>Gender:</b> <%= "#{@doctor["profile"]["gender"]}" %></p>
-      <p><b>Specialties:</b> <%= "#{@doctor["specialties"][0]["name"]}" %></p>
-      <p><b>Insurance plans appcepted:</b></p>
-
-      <h2>Contact information:</h2>
-      <p><b>Practice:</b> <%= "#{@doctor["practices"][0]["name"]}" %></p>
-      <p><b>Location:</b> </p>
-      <p><%= "#{@doctor["practices"][0]["visit_address"]["street"]}" %>, <%= "#{@doctor["practices"][0]["visit_address"]["street2"]}" %></p>
-      <p><%= "#{@doctor["practices"][0]["visit_address"]["city"]}" %>, <%= "#{@doctor["practices"][0]["visit_address"]["state_long"]}" %> <%= "#{@doctor["practices"][0]["visit_address"]["zip"]}" %></p>
-
-      <p>Website: <a href="<%= "#{@doctor["practices"][0]["website"]}" %>"><%= "#{@doctor["practices"][0]["website"]}" %></a></p>
-      <p>Phone: <%= "#{@doctor["practices"][0]["phones"][0]["number"]}" %></p>
-      <p>Accepting new patients? <%= "#{@doctor["practices"][0]["accepts_new_patients"]}" %></p>
-    </div>
-  </div>
-
-  <div class="col-sm-6 text-right">
-    <script>
-      var map;
-      function initMap() {
-        var myLatLng = {lat: <%= "#{@doctor["practices"][0]["lat"]}" %>, lng: <%= "#{@doctor["practices"][0]["lon"]}" %>};
-        map = new google.maps.Map(document.getElementById('map'), {
-          center: {lat: <%= "#{@doctor["practices"][0]["lat"]}" %>, lng: <%= "#{@doctor["practices"][0]["lon"]}" %>},
-          zoom: 14
-        });
-        var marker = new google.maps.Marker({
-          position: myLatLng,
-          map: map,
-          title: 'Hello World!'
-        });
-      }
-      </script>
-      <script src="https://maps.googleapis.com/maps/api/js?callback=initMap" async defer></script>
-    <div id="map"></div>
-  </div>
-
-</div><!--intro text end-->
 <!--Portfolio start-->
 <div class="portfolio-wrapper">
   <div class="parallax-header">
@@ -128,12 +127,9 @@
     </div>
     <div class="separator-bottom" style="background-color: #000000;color:#eef1f6;"></div>
   </div><!--parallax header end-->
-
-  
   <div class="space-60"></div>
 <!--newsletter-->
-
-
+  <div>
    <% @reviews.each do |review| %>
         <div class="col-sm-4">
         <div class="service-box wow animated fadeInDown" data-wow-delay="<%= @delay %>s"> 
@@ -145,7 +141,8 @@
       </div>
     <% @delay = (@delay + 0.3) %>
    <% end %>
-
+  </div>
+  <div class="space-60"></div>
 <div class="row no-margin newsletter-form">
   <div class="col-sm-7 wow animated fadeInLeft" data-wow-delay="0.1s">
     <h2>LEAVE A REVIEW</h2>
@@ -177,7 +174,38 @@
     <% end %>
   </div>
 </div>
+</div>
+
 <div class='space-60'></div>
+
+<%= form_tag "/questions", method: :post do %>
+  <div>
+    <%= label_tag :Question %>
+    <%= text_field_tag :text %>
+  </div>
+  <div>
+    <%= submit_tag "Submit Question" %>
+  </div>
+  <div>
+    <%= hidden_field_tag :doctor_uid, @doctor["uid"] %>
+  </div>
+  <div>
+    <%= hidden_field_tag :user_id, current_user.id %>
+  </div>
+  <div>
+    <%= hidden_field_tag :status, "Submitted" %>
+  </div>
+
+  <% end %>
+
+  <h3>Submit a question: </h3>
+
+  <p>Questions for <%= "#{@doctor["profile"]["first_name"]} 
+   #{@doctor["profile"]["last_name"]}" %>:</p>
+   <% @questions.each do |question| %>
+   <p><%= question.text %></p>
+   <% end %>
+
 <div class="testimonials row no-margin">
   <div class="col-sm-8 col-sm-offset-2 text-center">
     <h1>Testimonials</h1>
@@ -222,37 +250,8 @@
 </footer>
 <!--footer end-->
 
-   <% @doctor["insurances"].each do |insurance| %>
-   <p><%= insurance["insurance_plan"]["name"] %></p>  
-   <% end %>
 
-  <%= form_tag "/questions", method: :post do %>
-  <div>
-    <%= label_tag :Question %>
-    <%= text_field_tag :text %>
-  </div>
-  <div>
-    <%= submit_tag "Submit Question" %>
-  </div>
-  <div>
-    <%= hidden_field_tag :doctor_uid, @doctor["uid"] %>
-  </div>
-  <div>
-    <%= hidden_field_tag :user_id, current_user.id %>
-  </div>
-  <div>
-    <%= hidden_field_tag :status, "Submitted" %>
-  </div>
 
-  <% end %>
-
-  <h3>Submit a question: </h3>
-
-  <p>Questions for <%= "#{@doctor["profile"]["first_name"]} 
-   #{@doctor["profile"]["last_name"]}" %>:</p>
-   <% @questions.each do |question| %>
-   <p><%= question.text %></p>
-   <% end %>
 
 
 
