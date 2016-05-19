@@ -1,0 +1,19 @@
+<%= form_tag '/posts/#{@post_id}', method: :patch do %>
+
+  <div>
+    <%= label_tag :title %>
+    <%= text_field_tag :title, @post.title %>
+  </div>
+
+  <div>
+    <%= label_tag :content%>
+    <%= text_field_tag :content, @post.content %>
+  </div>
+
+  <div>
+    <%= submit_tag "Edit Post" %>
+  </div>
+
+<% end %>
+
+<h2><a href="/posts/#{@post.id}">Cancel</a></h2>

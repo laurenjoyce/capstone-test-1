@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160519192906) do
+ActiveRecord::Schema.define(version: 20160519222702) do
 
   create_table "doctors", force: :cascade do |t|
     t.string   "first_name"
@@ -52,6 +52,7 @@ ActiveRecord::Schema.define(version: 20160519192906) do
     t.integer  "rating"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string   "user_email"
   end
 
   create_table "saved_doctors", force: :cascade do |t|

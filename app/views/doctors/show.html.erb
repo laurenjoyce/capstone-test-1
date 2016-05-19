@@ -137,6 +137,9 @@
           <p>
             Review: "<%= review.text %>"
           </p>
+          <p>
+            User: <%=review.user_email %>
+          </p>
         </div>
       </div>
     <% @delay = (@delay + 0.3) %>
@@ -153,13 +156,14 @@
   <div class="col-sm-5 wow animated fadeInRight" data-wow-delay="0.2s">
     <%= form_tag "/reviews", method: :post do %>
       <div class="form-group">
-        <%= label_tag :Review %>
+        <%= label_tag :Review %></br>
         <%= text_field_tag :text %>
       </div>
       <div>
-        <%= label_tag :Rating %>
+        <%= label_tag :Rating %></br>
         <%= text_field_tag :rating %>
       </div>  
+      </br>
       <div>
         <%= button_tag(type: 'submit', class: "btn btn-dark btn-radius btn-lg") do %>
           SUBMIT
@@ -171,6 +175,9 @@
       <div>
         <%= hidden_field_tag :user_id, current_user.id %>
       </div>
+            <div>
+        <%= hidden_field_tag :user_email, current_user.email %>
+      </div>
     <% end %>
   </div>
 </div>
@@ -178,83 +185,62 @@
 
 <div class='space-60'></div>
 
-<%= form_tag "/questions", method: :post do %>
+<!--Portfolio start-->
+<div class="portfolio-wrapper">
+  <div class="parallax-header">
+    <div class="row no-margin">
+      <div class="col-sm-12 wow animated bounceIn" data-wow-delay="0.1s">
+        <h3>Questions</h3>
+        <p class="sub-title">Questions from Users</p>
+      </div>
+    </div>
+    <div class="separator-bottom" style="background-color: #000000;color:#eef1f6;"></div>
+  </div><!--parallax header end-->
+  <div class="space-60"></div>
   <div>
-    <%= label_tag :Question %>
-    <%= text_field_tag :text %>
-  </div>
-  <div>
-    <%= submit_tag "Submit Question" %>
-  </div>
-  <div>
-    <%= hidden_field_tag :doctor_uid, @doctor["uid"] %>
-  </div>
-  <div>
-    <%= hidden_field_tag :user_id, current_user.id %>
-  </div>
-  <div>
-    <%= hidden_field_tag :status, "Submitted" %>
-  </div>
-
-  <% end %>
-
-  <h3>Submit a question: </h3>
-
-  <p>Questions for <%= "#{@doctor["profile"]["first_name"]} 
-   #{@doctor["profile"]["last_name"]}" %>:</p>
    <% @questions.each do |question| %>
-   <p><%= question.text %></p>
+       <div class="col-sm-4">
+        <div class="service-box wow animated fadeInDown" data-wow-delay="<%= @delay %>s"> 
+          <p><%= question.text %></p>
+        </div>
+      </div>
+    <% @delay = (@delay + 0.3) %>
    <% end %>
+  </div>
 
-<div class="testimonials row no-margin">
-  <div class="col-sm-8 col-sm-offset-2 text-center">
-    <h1>Testimonials</h1>
-
-
-    <div id="owl-testi" class="owl-carousel owl-theme">
-
-      <div class="item">
-        <img src="/images/t-1.jpg" alt="">
-        <p>
-          Establecido hace demasiado tiempo que un lector se distraerá con el contenido del texto de un sitio mientras que mira su diseño. 
-        </p>
-        <h4>John doe</h4>
+  <div class="row no-margin newsletter-form">
+    <div class="col-sm-7 wow animated fadeInLeft" data-wow-delay="0.1s">
+      <h2>POST A QUESTION</h2>
+      <p>
+        Need more information? Post a question for this doctor 
+      </p>
+    </div>
+    <div class="col-sm-5 wow animated fadeInRight" data-wow-delay="0.2s">
+    <%= form_tag "/questions", method: :post do %>
+      <div class="form-group">
+        <%= label_tag :Question %>
+        <%= text_field_tag :text %>
       </div>
-      <div class="item">
-        <img src="/images/t-2.jpg" alt="">
-        <p>
-          Establecido hace demasiado tiempo que un lector se distraerá con el contenido del texto de un sitio mientras que mira su diseño. 
-        </p>
-        <h4>John doe</h4>
+      <div>
+        <%= button_tag(type: 'submit', class: "btn btn-dark btn-radius btn-lg") do %>
+          SUBMIT
+        <% end %>
       </div>
+      <div>
+        <%= hidden_field_tag :doctor_uid, @doctor["uid"] %>
+      </div>
+      <div>
+        <%= hidden_field_tag :user_id, current_user.id %>
+      </div>
+      <div>
+        <%= hidden_field_tag :status, "Submitted" %>
+      </div>
+      <% end %>
     </div>
   </div>
 </div>
 
-
-
-<!--footer start-->
-<footer class="footer row no-margin">
-  <div class="col-sm-7">
-    <ul class="list-inline">
-      <li><a href="/#">Home</a></li>
-      <li><a href="/#">About</a></li>
-      <li><a href="/#">News</a></li>
-      <li><a href="/#">Privacy</a></li>
-      <li><a href="/#">Contact</a></li>
-    </ul>
-  </div>
-  <div class="col-sm-5 text-right">
-    <span>&copy; Copyright 2016. All right reserved.</span>
-  </div>
-</footer>
-<!--footer end-->
-
-
-
-
-
-
+<div class='space-60'></div>
  </div>
 
 

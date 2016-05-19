@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   devise_for :users
-  resources :posts
+#  resources :posts
 
   get '/' => 'doctors#index'
   get '/doctors/:id' => 'doctors#show'
@@ -20,6 +20,14 @@ Rails.application.routes.draw do
   post '/user_profiles' => 'user_profiles#create'
   get '/user_profiles/edit' => 'user_profiles#edit'
   patch '/user_profiles' => 'user_profiles#update'
+
+  get '/posts' => 'posts#index'
+  get '/posts/new' => 'posts#new'
+  post '/posts' => 'posts#create'
+  get '/posts/:id' => 'posts#show'
+  get '/posts/:id/edit' => 'posts#edit'
+  patch '/posts/:id' => 'posts#update'
+  delete '/posts/:id' => 'posts#destroy'
 
   namespace :api do
     namespace :v1 do

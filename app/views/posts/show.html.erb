@@ -1,0 +1,7 @@
+<h1><%= @post.title %></h1>
+<p><%= @post.content %></p>
+
+<% if current_user.id == @post.user_id %>
+    <%= link_to "Edit this post", "/posts/#{@post.id}/edit" %><br/>
+    <%= link_to "Delete this post", "/posts/#{@post.id}", method: :delete %><br/>
+<% end %>

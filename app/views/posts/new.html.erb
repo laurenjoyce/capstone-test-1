@@ -1,0 +1,24 @@
+<h1>Create a Post</h1>
+
+<%= form_tag '/posts', method: :post do %>
+
+  <div>
+    <%= label_tag :title %>
+    <%= text_field_tag :title , @post.title%>
+  </div>
+
+  <div>
+    <%= label_tag :content%>
+    <%= text_field_tag :content, @post.content %>
+  </div>
+
+  <div>
+    <%= submit_tag "Create Post" %>
+  </div>
+
+  <div>
+    <%= hidden_field_tag :user_id, current_user.id %>
+  </div>
+<% end %>
+
+<h2><a href="/posts">Back to all posts</a></h2>
