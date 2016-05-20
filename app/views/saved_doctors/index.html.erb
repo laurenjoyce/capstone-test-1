@@ -1,20 +1,23 @@
 <div>
-<h1>My Saved Doctors</h1>
+<% if @saved_doctors.length == 0 %>
+  <h1>You haven't saved any doctors yet. Try <a href="/">searching</a> for a new doctor.<h1>
+<% else %>
+  <h1>My Saved Doctors</h1>
 
-<% @saved_doctors.each do |doctor| %>
-        <div class="col-sm-4">
-        <div class="service-box wow animated fadeInDown" data-wow-delay="<%= @delay %>s"> 
-          <%= link_to  "#{doctor[:first_name]} #{doctor[:last_name]}", "/doctors/#{doctor[:uid]}" %>
-
- <p><img src="<%= doctor[:image_url] %>"></p>
-  <p>Specialties: <%= doctor[:specialties] %></p>
-  <p>Practice: <%= doctor[:practice] %></p>
-  <p>Location:</p>
-  <p><%= doctor[:practice] %></p>
-
-<%= link_to "Remove from list", "/saved_doctors?doctor_uid=#{doctor[:uid]}", method: :delete %><br/>
-        </div>
-      </div>
-      <% @delay = @delay + 0.2 %>
-   <% end %>
+  <% @saved_doctors.each do |doctor| %>
+    <div class="col-sm-4">
+    <div class="service-box wow animated fadeInDown" data-wow-delay="<%= @delay %>s"> 
+    <h3>Dr. <%= link_to  "#{doctor[:first_name]} #{doctor[:last_name]}", "/doctors/#{doctor[:uid]}" %></h3>
+    <p><img src="<%= doctor[:image_url] %>"></p>
+    <p>Specialty: <%= doctor[:specialty] %></p>
+    <p>Practice: <%= doctor[:practice] %></p>
+    <p>Phone: <%= doctor[:phone] %></p>
+    <%= link_to "Remove from list", "/saved_doctors?doctor_uid=#{doctor[:uid]}", method: :delete %><br/>
+    </div>
+    </div>
+    <% @delay = @delay + 0.2 %>
+  <% end %>
+<% end %>
 </div>
+
+<% console %>

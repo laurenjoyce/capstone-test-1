@@ -12,15 +12,12 @@ class SavedDoctorsController < ApplicationController
         :image_url => response_body["profile"]["image_url"],
         :uid => response_body["uid"],
         :practice => response_body["practices"][0]["name"],
-        :bio => response_body["profile"]["bio"]
+        :phone => response_body["practices"][0]["phones"][0]["number"],
+        :specialty => response_body["specialties"][0]["name"]
       }
-
       @saved_doctors << doctor_data
     end
-
     return @saved_doctors
-
-
     render "index.html.erb"
     
   end
