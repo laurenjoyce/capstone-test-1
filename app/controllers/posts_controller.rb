@@ -40,11 +40,12 @@ class PostsController < ApplicationController
     if @post.update(title: params[:title],
                     content: params[:content]
                    )
-    redirect_to "/posts/#{@post.id}"
+      redirect_to "/posts/#{@post.id}"
     else
       render "edit.html.erb"
     end
   end  
+  
   def destroy
     @post.destroy
     redirect_to @post

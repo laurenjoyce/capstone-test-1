@@ -81,10 +81,10 @@
           <li><a href="/users/sign_up">Sign Up</a></li>
           <li><a href="/users/sign_in">Log In</a></li>
           <% else %> 
-          <li>Welcome, <%= current_user.user_profile.first_name %>!</li> 
-          <li><%= link_to "Log Out", "/users/sign_out", method: :delete %></li>
+          <li>Welcome, <%= current_user.user_profile.first_name %>!</li>
           <li><a href="/saved_doctors">My Saved Doctors</a></li>
           <li><a href="/user_profiles">My Profile</a></li>
+          <li><%= link_to "Log Out", "/users/sign_out", method: :delete %></li>
           <% end %>
         </ul>
       </aside>

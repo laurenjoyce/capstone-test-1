@@ -8,4 +8,5 @@ class User < ActiveRecord::Base
   has_many :questions
   has_one :user_profile
   has_many :posts
+  has_many :comments
 end

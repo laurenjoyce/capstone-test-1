@@ -353,6 +353,14 @@ hr.separator {
   .service-box:hover i {
     color: #e7604a; }
 
+.service-box-height {
+  margin-bottom: 30px;
+  text-align: center;
+  padding: 15px;
+  background-color: #fff;
+  min-height: 350px; }
+
+
 /**intro text**/
 .intro-text {
   background-color: transparent; }

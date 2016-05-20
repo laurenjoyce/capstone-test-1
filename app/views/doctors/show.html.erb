@@ -9,32 +9,30 @@
         Dr. <%= "#{@doctor["profile"]["first_name"]} 
         #{@doctor["profile"]["last_name"]}" %>
       </h2>
-
-
-            <p><img src="<%= "#{@doctor["profile"]["image_url"]}" %>" 
-               alt="Mountain View" style="width:152px;height:145px;"></p>
-            <div class="buttons">
-             <%= form_tag "/saved_doctors", method: :post do %>
+        <p><img src="<%= "#{@doctor["profile"]["image_url"]}" %>" 
+          alt="Mountain View" style="width:152px;height:145px;">
+        </p>
+        <% if current_user %>  
+          <div class="buttons">
+            <%= form_tag "/saved_doctors", method: :post do %>
               <div>
                 <%= button_tag(type: 'submit', class: "btn btn-skin btn-lg btn-radius") do %>
                   Save This Doctor
                 <% end %>
               </div>
-
               <div>
                 <%= hidden_field_tag :doctor_uid, @doctor["uid"] %>
               </div>
-
               <div>
                 <%= hidden_field_tag :user_id, current_user.id %>
               </div>
-
               <div>
                 <%= hidden_field_tag :status, "Saved" %>
               </div>
             <% end %>
-            </div>
-      <p><b>Gender:</b> <%= "#{@doctor["profile"]["gender"]}" %></p>
+          </div>
+        <% end %>
+      <p> <b>Gender:</b> <%= "#{@doctor["profile"]["gender"]}" %></p>
       <p><b>Specialties:</b> <%= "#{@doctor["specialties"][0]["name"]}" %></p>
       <p><b>Insurance plans appcepted:</b></p>
         <% if @doctor["insurances"] %>
@@ -66,7 +64,6 @@
       <script src="https://maps.googleapis.com/maps/api/js?callback=initMap" async defer></script>
     <div id="map"></div>
     <div class="col-sm-4 text-left">    
-      <h3>Contact information:</h3>
       <p><b>Practice:</b> <%= "#{@doctor["practices"][0]["name"]}" %></p>
       <p><b>Location:</b> </p>
       <p><%= "#{@doctor["practices"][0]["visit_address"]["street"]}" %>, <%= "#{@doctor["practices"][0]["visit_address"]["street2"]}" %></p>
@@ -78,19 +75,23 @@
           <a href="<%= "#{@doctor["practices"][0]["website"]}" %>"><%= "#{@doctor["practices"][0]["website"]}" %></a>
         <% end %>
       </p>
-      </div>
-      <div class="col-sm-5 text-left">
-      <p>Phone: <%= "#{@doctor["practices"][0]["phones"][0]["number"]}" %></p>
-      <p>Accepting new patients? 
-        <% if @doctor["practices"][0]["accepts_new_patients"] %>
-          Yes
-        <% else %>
-          no
-        <% end %>
-      </p>
-      <p><a href="https://www.google.com/maps/dir/Current+Location/<%= @doctor["practices"][0]["lat"] %>,<%= @doctor["practices"][0]["lon"] %>">Get Directions from your Current Location</a></p>
-      <p><a href="https://www.google.com/maps/dir/<%= current_user.user_profile.lat %>,<%= current_user.user_profile.lon %>/<%= @doctor["practices"][0]["lat"] %>,<%= @doctor["practices"][0]["lon"] %>">Get Directions from your Saved Address</a></p>
     </div>
+      <div class="col-sm-5 text-left">
+        <p>Phone: <%= "#{@doctor["practices"][0]["phones"][0]["number"]}" %></p>
+        <p>Accepting new patients? 
+          <% if @doctor["practices"][0]["accepts_new_patients"] %>
+            Yes
+          <% else %>
+            No
+          <% end %>
+        </p>
+        <% if current_user %>
+          <p><a href="https://www.google.com/maps/dir/Current+Location/<%= @doctor["practices"][0]["lat"] %>,<%= @doctor["practices"][0]["lon"] %>">Get Directions from your Current Location</a></p>
+          <p><a href="https://www.google.com/maps/dir/<%= current_user.user_profile.lat %>,<%= current_user.user_profile.lon %>/<%= @doctor["practices"][0]["lat"] %>,<%= @doctor["practices"][0]["lon"] %>">Get Directions from your Saved Address</a></p>
+        <% else %>
+          <p><a href="https://www.google.com/maps/dir/Current+Location/<%= @doctor["practices"][0]["lat"] %>,<%= @doctor["practices"][0]["lon"] %>">Get Directions from your Current Location</a></p>
+        <% end %>
+      </div>
   </div>
 
 </div><!--intro text end-->
@@ -138,7 +139,7 @@
             Review: "<%= review.text %>"
           </p>
           <p>
-            User: <%=review.user_email %>
+            From: <a href="mailto:#{review.user.email}"><%=review.user.email %></a>
           </p>
         </div>
       </div>
@@ -153,33 +154,37 @@
       Would you recommend this docotor? Let others know what you think!
     </p>
   </div>
-  <div class="col-sm-5 wow animated fadeInRight" data-wow-delay="0.2s">
-    <%= form_tag "/reviews", method: :post do %>
-      <div class="form-group">
-        <%= label_tag :Review %></br>
-        <%= text_field_tag :text %>
-      </div>
-      <div>
-        <%= label_tag :Rating %></br>
-        <%= text_field_tag :rating %>
-      </div>  
-      </br>
-      <div>
-        <%= button_tag(type: 'submit', class: "btn btn-dark btn-radius btn-lg") do %>
-          SUBMIT
-        <% end %>
-      </div>
-      <div>
-        <%= hidden_field_tag :doctor_uid, @doctor["uid"] %>
-      </div>
-      <div>
-        <%= hidden_field_tag :user_id, current_user.id %>
-      </div>
-            <div>
-        <%= hidden_field_tag :user_email, current_user.email %>
-      </div>
-    <% end %>
-  </div>
+  <% if current_user%>
+    <div class="col-sm-5 wow animated fadeInRight" data-wow-delay="0.2s">
+      <%= form_tag "/reviews", method: :post do %>
+        <div class="form-group">
+          <%= label_tag :Review %></br>
+          <%= text_field_tag :text %>
+        </div>
+        <div>
+          <%= label_tag :Rating %></br>
+          <%= text_field_tag :rating %>
+        </div>  
+        </br>
+        <div>
+          <%= button_tag(type: 'submit', class: "btn btn-dark btn-radius btn-lg") do %>
+            SUBMIT
+          <% end %>
+        </div>
+        <div>
+          <%= hidden_field_tag :doctor_uid, @doctor["uid"] %>
+        </div>
+        <div>
+          <%= hidden_field_tag :user_id, current_user.id %>
+        </div>
+        <div>
+          <%= hidden_field_tag :user_email, current_user.user_profile.email %>
+        </div>
+      <% end %>
+    </div>
+  <% else %>
+    <p>Log in or sign up to leave a review</p>
+  <% end %>
 </div>
 </div>
 
@@ -216,25 +221,32 @@
       </p>
     </div>
     <div class="col-sm-5 wow animated fadeInRight" data-wow-delay="0.2s">
-    <%= form_tag "/questions", method: :post do %>
-      <div class="form-group">
-        <%= label_tag :Question %>
-        <%= text_field_tag :text %>
-      </div>
-      <div>
-        <%= button_tag(type: 'submit', class: "btn btn-dark btn-radius btn-lg") do %>
-          SUBMIT
+      <% if current_user %>
+        <%= form_tag "/questions", method: :post do %>
+          <div class="form-group">
+            <%= label_tag :Question %></br>
+            <%= text_field_tag :text %>
+          </div>
+          <div>
+            <%= button_tag(type: 'submit', class: "btn btn-dark btn-radius btn-lg") do %>
+              SUBMIT
+            <% end %>
+          </div>
+          <div>
+            <%= hidden_field_tag :doctor_uid, @doctor["uid"] %>
+          </div>
+          <div>
+            <%= hidden_field_tag :user_id, current_user.id %>
+          </div>
+          <div>
+            <%= hidden_field_tag :user_email, current_user.user_profile.email %>
+          </div>
+          <div>
+            <%= hidden_field_tag :status, "Submitted" %>
+          </div>
         <% end %>
-      </div>
-      <div>
-        <%= hidden_field_tag :doctor_uid, @doctor["uid"] %>
-      </div>
-      <div>
-        <%= hidden_field_tag :user_id, current_user.id %>
-      </div>
-      <div>
-        <%= hidden_field_tag :status, "Submitted" %>
-      </div>
+      <% else %>
+        <p>Log in or sign up to leave a review</p>
       <% end %>
     </div>
   </div>

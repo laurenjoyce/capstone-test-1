@@ -8,7 +8,8 @@ class DoctorsController < ApplicationController
       @insurances = InsuranceHelper::Insurances::BETTER_DOCTOR_INSURANCES[0][:data]
       @specialties = SpecialtyHelper::Specialties::BETTER_DOCTOR_SPECIALTIES[0][:data]
       insurance_lookup = {}
-      @insurances.each { |i| insurance_lookup[i[:name]] = i[:uid] }
+      # @insurances.each { |i| insurance_lookup[i[:name]] = i[:plans].map { |p| p[:uid] }.join(',') }
+      @insurances.each { |i| insurance_lookup[i[:name]] = i[:plans][0][:uid] }
       puts '*' * 30
       p insurance_lookup
       puts '*' * 30
@@ -24,7 +25,7 @@ class DoctorsController < ApplicationController
       params[:last_name] && !params[:last_name].empty? ? @search_query_string += "last_name=#{params[:last_name]}&" : @search_query_string += ""
       params[:gender] && !params[:gender].empty? ? @search_query_string += "gender=#{params[:gender]}&" : @search_query_string += ""
       params[:specialty] && !params[:specialty].empty? ? @search_query_string += "specialty_uid=#{specialty_lookup[params[:specialty]]}&" : @search_query_string += ""
-      #params[:insurance] && !params[:insurance].empty? ? @search_query_string += "insurance_uid=#{insurance_lookup[params[:insurance]]}&" : @search_query_string += ""
+      params[:insurance] && !params[:insurance].empty? ? @search_query_string += "insurance_uid=#{insurance_lookup[params[:insurance]]}&" : @search_query_string += ""
       
         if current_user#unless @search_query_string.empty?
           params[:user_location] && !params[:user_location].empty? ? @search_query_string += "location=#{current_user.user_profile.lat}%2C%20#{current_user.user_profile.lon}%2C100&" : @search_query_string += ""
@@ -65,3 +66,5 @@ class DoctorsController < ApplicationController
   #   render "index.html.erb"
   # end
 end
+
+
