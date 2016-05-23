@@ -82,7 +82,8 @@
       <script src="https://maps.googleapis.com/maps/api/js?callback=initMap" async defer></script>
     <div id="map"></div>
     <div class="col-sm-4 text-left">    
-      <p><b>Practice:</b> <%= "#{@doctor["practices"][0]["name"]}" %></p>
+      <p><b>Practice:</b></p> 
+      <p><%= "#{@doctor["practices"][0]["name"]}" %></p>
       <p><b>Phone:</b> <%= "#{@doctor["practices"][0]["phones"][0]["number"]}" %></p>
       <p><b>Website:</b> 
         <% if @doctor["practices"][0]["website"] == nil %>
