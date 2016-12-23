@@ -13,8 +13,8 @@ class UserProfilesController < ApplicationController
       last_name: params[:last_name],
       address: params[:address],
       insurance: params[:insurance],
-      lat: coordinates[0],
-      lon: coordinates[1]
+  #    lat: coordinates[0],
+  #    lon: coordinates[1]
     )
     redirect_to "/user_profiles"
   end
